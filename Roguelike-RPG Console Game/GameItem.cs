@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Roguelike_RPG_Console_Game
 {
-    class Program
+    public class GameItem
     {
-        static void Main(string[] args)
+        protected int cost;
+
+        public GameItem(int cost)
         {
+            this.cost = cost;
         }
     }
 }
