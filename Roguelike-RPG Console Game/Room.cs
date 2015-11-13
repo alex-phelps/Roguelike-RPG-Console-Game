@@ -78,13 +78,16 @@ namespace Roguelike_RPG_Console_Game
                 return true;
             else return false;
         }
-
-        public void Draw()
+        public override string ToString()
         {
+            string s = "";
+
             foreach (char c in map)
             {
-                Console.Write(c);
+                s += c;
             }
+
+            return s;
         }
     }
 }
