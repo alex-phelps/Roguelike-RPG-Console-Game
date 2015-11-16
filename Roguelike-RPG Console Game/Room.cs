@@ -15,18 +15,21 @@ namespace Roguelike_RPG_Console_Game
         private Random random;
         private int coinCount;
         private int[,] coinPos;
-        private int monsterCount;
+        private int enemyCount;
+        private List<Enemy> enemies;
 
         private char[,] map;
 
-        public Room(int width, int height, int coinCount = 0, int monsterCount = 0)
+        public Room(int width, int height, int coinCount, List<EnemyType> enemyTypes, int enemyCount)
         {
             random = new Random();
 
             this.width = width;
             this.height = height;
             this.coinCount = coinCount;
-            this.monsterCount = monsterCount;
+            this.enemyCount = enemyCount;
+
+            enemies = new List<Enemy>();
 
             map = new char[height, (width + 1)];
             coinPos = new int[coinCount, 2];
@@ -40,6 +43,19 @@ namespace Roguelike_RPG_Console_Game
             exitPos = new int[2];
             exitPos[0] = random.Next(1, height - 1);
             exitPos[1] = random.Next(1, width - 1);
+
+            for (int i = 0; i < enemyCount; i++)
+            {
+                EnemyType enemyType = enemyTypes.ElementAt(random.Next(enemyTypes.Count - 1));
+
+                int x = random.Next(1, width - 1);
+                int y = random.Next(1, height - 1);
+
+                if (enemyType == EnemyType.rat)
+                {
+                    enemies.Add(new Rat(x, y));
+                }
+            }
         }
 
         public bool Update(Player player)
@@ -76,7 +92,15 @@ namespace Roguelike_RPG_Console_Game
 
             if (exitPos[0] == player.y && exitPos[1] == player.x)
                 return true;
-            else return false;
+
+            foreach (Enemy e in enemies)
+            {
+                e.Update(player);
+                map[e.y, e.x] = e.ToChar();
+            }
+
+            return false;
+
         }
         public override string ToString()
         {

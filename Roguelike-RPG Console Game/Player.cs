@@ -18,10 +18,14 @@ namespace Roguelike_RPG_Console_Game
         public int x = 0;
         public int y = 0;
 
+        private int expNeeded = 10;
+
         public Player(Weapon weapon)
         {
             inventory = new List<GameItem>();
             this.weapon = weapon;
+
+            inventory.Add(weapon);
         }
 
         public void Update(ConsoleKey key, Room room)
@@ -55,10 +59,11 @@ namespace Roguelike_RPG_Console_Game
                     x--;
             }
 
-            if (exp == 100)
+            if (exp == expNeeded)
             {
                 exp = 0;
                 level++;
+                expNeeded = Convert.ToInt32(expNeeded * 1.5f);
             }
         }
     }
