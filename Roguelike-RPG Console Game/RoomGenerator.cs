@@ -25,7 +25,7 @@ namespace Roguelike_RPG_Console_Game
             int enemyCount = random.Next(1, (width * height) / 80);
 
 
-            if (player.dungeonLevel < 4)
+            if (player.dungeonLevel < 10)
             {
                 List<EnemyType> enemies = new List<EnemyType>();
                 enemies.Add(EnemyType.rat);

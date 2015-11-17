@@ -13,8 +13,29 @@ namespace Roguelike_RPG_Console_Game
 
     public class Enemy
     {
+        public string healthBar
+        {
+            get
+            {
+                string healthBar = "[";
+
+                for (int i = 8; i > 0; i--)
+                {
+                    if ((float)health >= (float)(health * (i / 8)))
+                        healthBar += "█";
+                    else healthBar += " ";
+                }
+
+                healthBar += "]";
+
+                return healthBar;
+            }
+        }
         public int x { get; protected set; }
         public int y { get; protected set; }
+        public bool alive { get; protected set; }
+        public int expDropped { get; protected set; }
+        public int goldDropped { get; protected set; }
 
         protected int level;
         protected int baseHealth;
@@ -24,9 +45,15 @@ namespace Roguelike_RPG_Console_Game
         protected int baseDefence;
         protected int defence;
         protected int expDropBase;
-        protected int expDropped;
         protected int goldDropBase;
-        protected int goldDropped;
+
+        public Enemy(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+
+            alive = true;
+        }
 
         public void Update(Player player)
         {
@@ -71,9 +98,38 @@ namespace Roguelike_RPG_Console_Game
             }
         }
 
+        public virtual void TakeDamage(int damage)
+        {
+            damage -= defence / 2;
+
+            if (damage < 0)
+                damage = 0;
+
+            health -= damage;
+
+            if (health <= 0)
+                alive = false;
+        }
+
+        public void Attack(Player player)
+        {
+            player.TakeDamage(attackDamage);
+        }
+
         public virtual char ToChar()
         {
             return '$';
+        }
+
+        public override string ToString()
+        {
+            return
+                "Level: " + level + "\n" +
+                "Health: " + healthBar + "\n" +
+                "#####################\n" +
+                "IMAGE HERE\n" +
+                "#####################\n";
+
         }
     }
 }

@@ -8,11 +8,34 @@ namespace Roguelike_RPG_Console_Game
 {
     public class Player
     {
-        public int health = 100;
-        public int level = 1;
+        public string healthBar
+        {
+            get
+            {
+                string healthBar = "[";
+
+                for (int i = 1; i <= 8; i++)
+                {
+                    if ((float)health >= (float)(health * (i / 8)))
+                        healthBar += "█";
+                    else healthBar += " ";
+                }
+
+                healthBar += "]";
+
+                return healthBar;
+            }
+        }
+
+        public bool alive = true;
+        public int level;
+        public int maxHealth = 100;
+        public int health;
+        public int attackDamage = 5;
+        public int defence = 0;
         public int exp = 0;
         public int gold = 0;
-        public int dungeonLevel = 0;
+        public int dungeonLevel = 1;
         public List<GameItem> inventory;
         public Weapon weapon;
         public int x = 0;
@@ -24,6 +47,8 @@ namespace Roguelike_RPG_Console_Game
         {
             inventory = new List<GameItem>();
             this.weapon = weapon;
+
+            health = maxHealth;
 
             inventory.Add(weapon);
         }
@@ -58,12 +83,61 @@ namespace Roguelike_RPG_Console_Game
                 if (x == 0 || x == room.width - 1)
                     x--;
             }
+        }
 
-            if (exp == expNeeded)
+        public void TakeDamage(int damage)
+        {
+            damage -= defence / 2;
+
+            if (damage < 0)
+                damage = 0;
+
+            health -= damage;
+
+            if (health < 0)
+                alive = false;
+        }
+
+        public void Attack(Enemy enemy)
+        {
+            enemy.TakeDamage(attackDamage + weapon.damage);
+        }
+
+        public void Loot(Enemy enemy)
+        {
+            exp += enemy.expDropped;
+            gold += enemy.goldDropped;
+
+            Console.WriteLine("You got: \n\nExperience: " + enemy.expDropped + "\nGold: " + enemy.goldDropped);
+
+            Console.ReadKey();
+
+            if (exp >= expNeeded)
             {
-                exp = 0;
+                Console.WriteLine("\nYou leveled up!\n");
+                Console.WriteLine(level + " → " + (level + 1) + "\n");
+
+                exp -= expNeeded;
                 level++;
                 expNeeded = Convert.ToInt32(expNeeded * 1.5f);
+
+                Random random = new Random();
+
+                int newAttack = attackDamage + random.Next(0, 3);
+                int newDefence = defence + random.Next(0, 2);
+                int newHealth = maxHealth + random.Next(0, 5);
+
+                Console.WriteLine("HP: " + maxHealth + " → " + newHealth + " +" + (newHealth - maxHealth));
+                Console.WriteLine("Att: " + attackDamage + " → " + newAttack + " +" + (newAttack - attackDamage));
+                Console.WriteLine("Def: " + defence + " → " + newDefence + " +" + (newDefence - defence));
+
+                health += newHealth - maxHealth;
+
+                attackDamage = newAttack;
+                maxHealth = newHealth;
+                defence = newDefence;
+
+                Console.ReadKey();
             }
         }
     }

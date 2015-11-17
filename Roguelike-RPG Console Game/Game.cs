@@ -10,7 +10,7 @@ namespace Roguelike_RPG_Console_Game
     {
         static void Main(string[] args)
         {
-            Weapon woodSword = new Weapon("Wood Sword", 5, 5);
+            Weapon woodSword = new Weapon("Wood Sword", 1, 5);
             Player player = new Player(woodSword);
             RoomGenerator roomGenerator = new RoomGenerator(player);
 

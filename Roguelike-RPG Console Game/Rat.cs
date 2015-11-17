@@ -10,14 +10,12 @@ namespace Roguelike_RPG_Console_Game
     {
         Random random;
 
-        public Rat(int x, int y)
+        public Rat(int x, int y) 
+            : base(x, y)
         {
-            this.x = x;
-            this.y = y;
-
             random = new Random();
 
-            level = random.Next(1, 2);
+            level = random.Next(1, 4);
             int modifier = Convert.ToInt32(1.5f * level);
 
             baseHealth = 8;

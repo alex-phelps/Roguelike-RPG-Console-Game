@@ -36,6 +36,7 @@ namespace Roguelike_RPG_Console_Game
 
             for (int i = 0; i < coinCount; i++)
             {
+                System.Threading.Thread.Sleep(10);
                 coinPos[i, 0] = random.Next(1, height - 1);
                 coinPos[i, 1] = random.Next(1, width - 1);
             }
@@ -46,6 +47,7 @@ namespace Roguelike_RPG_Console_Game
 
             for (int i = 0; i < enemyCount; i++)
             {
+                System.Threading.Thread.Sleep(10);
                 EnemyType enemyType = enemyTypes.ElementAt(random.Next(enemyTypes.Count - 1));
 
                 int x = random.Next(1, width - 1);
@@ -88,16 +90,32 @@ namespace Roguelike_RPG_Console_Game
             }
 
             map[exitPos[0], exitPos[1]] = '█';
-            map[player.y, player.x] = '@';
 
             if (exitPos[0] == player.y && exitPos[1] == player.x)
                 return true;
+
+            List<Enemy> deadEnemies = new List<Enemy>();
 
             foreach (Enemy e in enemies)
             {
                 e.Update(player);
                 map[e.y, e.x] = e.ToChar();
+
+                if (e.y == player.y && e.x == player.x)
+                {
+                    BattleScreen battle = new BattleScreen(player, e);
+                    if (battle.DoBattle())
+                        deadEnemies.Add(e);
+                    else System.Environment.Exit(0);
+                }
             }
+
+            foreach (Enemy e in deadEnemies)
+            {
+                enemies.Remove(e);
+            }
+
+            map[player.y, player.x] = '@';
 
             return false;
 

@@ -8,7 +8,7 @@ namespace Roguelike_RPG_Console_Game
 {
     public class Weapon : GameItem
     {
-        private int damage;
+        public int damage { get; private set; }
 
         public Weapon(string name, int damage, int cost)
             : base(cost)
