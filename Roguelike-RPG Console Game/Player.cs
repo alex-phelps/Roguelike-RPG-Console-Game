@@ -83,7 +83,7 @@ namespace Roguelike_RPG_Console_Game
                 if (x == 0 || x == room.width - 1)
                     x--;
             }
-            if (key == ConsoleKey.I)
+            if (key == ConsoleKey.B)
             {
                 CheckInventory();
             }

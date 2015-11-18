@@ -61,7 +61,7 @@ namespace Roguelike_RPG_Console_Game
                     enemies.Add(new WeakZombie(x, y));
             }
 
-            if (random.Next(0, 3) == 0)
+            if (random.Next(0, 2) == 0)
             {
                 RandomItemType itemType = randomItemType.ElementAt(random.Next(randomItemType.Count));
 
