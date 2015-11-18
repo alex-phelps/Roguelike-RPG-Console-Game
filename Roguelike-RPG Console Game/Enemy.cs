@@ -8,7 +8,8 @@ namespace Roguelike_RPG_Console_Game
 {
     public enum EnemyType
     {
-        rat
+        rat,
+        weakZombie
     }
 
     public class Enemy
@@ -21,7 +22,7 @@ namespace Roguelike_RPG_Console_Game
 
                 for (int i = 8; i > 0; i--)
                 {
-                    if ((float)health >= (float)(health * (i / 8)))
+                    if ((float)health >= (float)(maxHealth * (i / 8f)))
                         healthBar += "█";
                     else healthBar += " ";
                 }
@@ -37,8 +38,10 @@ namespace Roguelike_RPG_Console_Game
         public int expDropped { get; protected set; }
         public int goldDropped { get; protected set; }
 
+        protected Random random;
         protected int level;
         protected int baseHealth;
+        protected int maxHealth;
         protected int health;
         protected int baseAttack;
         protected int attackDamage;
@@ -46,6 +49,8 @@ namespace Roguelike_RPG_Console_Game
         protected int defence;
         protected int expDropBase;
         protected int goldDropBase;
+
+        protected string name;
 
         public Enemy(int x, int y)
         {
@@ -124,7 +129,7 @@ namespace Roguelike_RPG_Console_Game
         public override string ToString()
         {
             return
-                "Level: " + level + "\n" +
+                "Level " + level + " " + name + "\n" +
                 "Health: " + healthBar + "\n" +
                 "#####################\n" +
                 "IMAGE HERE\n" +

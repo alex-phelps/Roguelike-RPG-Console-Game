@@ -16,7 +16,7 @@ namespace Roguelike_RPG_Console_Game
 
                 for (int i = 1; i <= 8; i++)
                 {
-                    if ((float)health >= (float)(health * (i / 8)))
+                    if ((float)health >= (float)(maxHealth * (i / 8f)))
                         healthBar += "█";
                     else healthBar += " ";
                 }
@@ -28,10 +28,10 @@ namespace Roguelike_RPG_Console_Game
         }
 
         public bool alive = true;
-        public int level;
+        public int level = 1;
         public int maxHealth = 100;
         public int health;
-        public int attackDamage = 5;
+        public int attackDamage = 4;
         public int defence = 0;
         public int exp = 0;
         public int gold = 0;
@@ -83,6 +83,10 @@ namespace Roguelike_RPG_Console_Game
                 if (x == 0 || x == room.width - 1)
                     x--;
             }
+            if (key == ConsoleKey.I)
+            {
+                CheckInventory();
+            }
         }
 
         public void TakeDamage(int damage)
@@ -119,13 +123,13 @@ namespace Roguelike_RPG_Console_Game
 
                 exp -= expNeeded;
                 level++;
-                expNeeded = Convert.ToInt32(expNeeded * 1.5f);
+                expNeeded = Convert.ToInt32(expNeeded * 1.25f);
 
                 Random random = new Random();
 
-                int newAttack = attackDamage + random.Next(0, 3);
-                int newDefence = defence + random.Next(0, 2);
-                int newHealth = maxHealth + random.Next(0, 5);
+                int newAttack = attackDamage + random.Next(0, 5);
+                int newDefence = defence + random.Next(0, 3);
+                int newHealth = maxHealth + random.Next(0, 9);
 
                 Console.WriteLine("HP: " + maxHealth + " → " + newHealth + " +" + (newHealth - maxHealth));
                 Console.WriteLine("Att: " + attackDamage + " → " + newAttack + " +" + (newAttack - attackDamage));
@@ -138,6 +142,54 @@ namespace Roguelike_RPG_Console_Game
                 defence = newDefence;
 
                 Console.ReadKey();
+            }
+        }
+
+        public void CheckInventory()
+        {
+            int selectedItem = 0;
+
+            while (true)
+            {
+
+                Console.Clear();
+                Console.WriteLine("##Inventory##");
+
+                if (!(selectedItem <= inventory.Count - 1))
+                    selectedItem = inventory.Count - 1;
+
+                foreach (GameItem item in inventory)
+                {
+                    if (inventory.IndexOf(item) == selectedItem)
+                        Console.Write(">> ");
+                    else Console.Write("$  ");
+
+                    Console.WriteLine(item.name);
+                }
+
+                ConsoleKey key = Console.ReadKey().Key;
+
+                if (key == ConsoleKey.UpArrow)
+                {
+                    if (selectedItem == 0)
+                        selectedItem = inventory.Count - 1;
+                    else selectedItem--;
+                }
+                if (key == ConsoleKey.DownArrow)
+                {
+                    if (selectedItem == inventory.Count - 1)
+                        selectedItem = 0;
+                    else selectedItem++;
+                }
+                if (key == ConsoleKey.Enter)
+                {
+                    if (inventory[selectedItem].UseItem(this))
+                        inventory.RemoveAt(selectedItem);
+
+                    Console.ReadKey();
+                }
+                if (key == ConsoleKey.Escape)
+                    break;
             }
         }
     }

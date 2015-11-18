@@ -24,15 +24,21 @@ namespace Roguelike_RPG_Console_Game
             int coinCount = random.Next(0, (width * height) / 50);
             int enemyCount = random.Next(1, (width * height) / 80);
 
+            List<EnemyType> enemies = new List<EnemyType>();
+            List<RandomItemType> items = new List<RandomItemType>();
+            items.Add(RandomItemType.basicHealthTonic);
 
-            if (player.dungeonLevel < 10)
+            if (player.dungeonLevel < 5)
             {
-                List<EnemyType> enemies = new List<EnemyType>();
                 enemies.Add(EnemyType.rat);
-
-                return new Room(width, height, coinCount, enemies, enemyCount);
             }
-            else return new Room(width, height, coinCount, null, 0);
+            else if (player.dungeonLevel < 10)
+            {
+                enemies.Add(EnemyType.rat);
+                enemies.Add(EnemyType.weakZombie);
+            }
+
+            return new Room(width, height, coinCount, enemies, enemyCount, items);
 
         }
     }

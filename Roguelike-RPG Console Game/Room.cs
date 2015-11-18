@@ -17,10 +17,11 @@ namespace Roguelike_RPG_Console_Game
         private int[,] coinPos;
         private int enemyCount;
         private List<Enemy> enemies;
+        private List<GameItem> items;
 
         private char[,] map;
 
-        public Room(int width, int height, int coinCount, List<EnemyType> enemyTypes, int enemyCount)
+        public Room(int width, int height, int coinCount, List<EnemyType> enemyTypes, int enemyCount, List<RandomItemType> randomItemType)
         {
             random = new Random();
 
@@ -30,6 +31,7 @@ namespace Roguelike_RPG_Console_Game
             this.enemyCount = enemyCount;
 
             enemies = new List<Enemy>();
+            items = new List<GameItem>();
 
             map = new char[height, (width + 1)];
             coinPos = new int[coinCount, 2];
@@ -48,14 +50,27 @@ namespace Roguelike_RPG_Console_Game
             for (int i = 0; i < enemyCount; i++)
             {
                 System.Threading.Thread.Sleep(10);
-                EnemyType enemyType = enemyTypes.ElementAt(random.Next(enemyTypes.Count - 1));
+                EnemyType enemyType = enemyTypes.ElementAt(random.Next(enemyTypes.Count));
 
                 int x = random.Next(1, width - 1);
                 int y = random.Next(1, height - 1);
 
                 if (enemyType == EnemyType.rat)
-                {
                     enemies.Add(new Rat(x, y));
+                if (enemyType == EnemyType.weakZombie)
+                    enemies.Add(new WeakZombie(x, y));
+            }
+
+            if (random.Next(0, 3) == 0)
+            {
+                RandomItemType itemType = randomItemType.ElementAt(random.Next(randomItemType.Count));
+
+                int x = random.Next(1, width - 1);
+                int y = random.Next(1, height - 1);
+
+                if (itemType == RandomItemType.basicHealthTonic)
+                {
+                    items.Add(new HealthTonicBasic(x, y));
                 }
             }
         }
@@ -95,6 +110,18 @@ namespace Roguelike_RPG_Console_Game
                 return true;
 
             List<Enemy> deadEnemies = new List<Enemy>();
+            List<GameItem> collectedItems = new List<GameItem>();
+
+            foreach (GameItem item in items)
+            {
+                map[item.y, item.x] = 'º';
+
+                if (item.x == player.x && item.y == player.y)
+                {
+                    player.inventory.Add(item);
+                    collectedItems.Add(item);
+                }
+            }
 
             foreach (Enemy e in enemies)
             {
@@ -110,10 +137,16 @@ namespace Roguelike_RPG_Console_Game
                 }
             }
 
+            foreach (GameItem i in collectedItems)
+            {
+                items.Remove(i);
+            } 
+            
             foreach (Enemy e in deadEnemies)
             {
                 enemies.Remove(e);
             }
+
 
             map[player.y, player.x] = '@';
 

@@ -67,6 +67,10 @@ namespace Roguelike_RPG_Console_Game
                         }
 
                         break;
+                    
+                    case ConsoleKey.B:
+                        player.CheckInventory();
+                        break;
                 }
             }
 

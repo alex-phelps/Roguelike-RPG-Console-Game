@@ -10,7 +10,7 @@ namespace Roguelike_RPG_Console_Game
     {
         static void Main(string[] args)
         {
-            Weapon woodSword = new Weapon("Wood Sword", 1, 5);
+            Weapon woodSword = new Weapon("Wood Sword", 1, 2);
             Player player = new Player(woodSword);
             RoomGenerator roomGenerator = new RoomGenerator(player);
 
@@ -27,7 +27,7 @@ namespace Roguelike_RPG_Console_Game
                     Console.Clear();
 
                     Console.WriteLine("Level: " + player.level + "  Gold: " + player.gold + "  Room: " + player.dungeonLevel);
-                    Console.WriteLine("Exp: " + player.exp);
+                    Console.WriteLine("Exp: " + player.exp + " Health: " + player.healthBar);
                     Console.WriteLine(roomString);
 
                     ConsoleKey key = Console.ReadKey().Key;
