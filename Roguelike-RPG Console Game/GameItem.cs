@@ -14,9 +14,10 @@ namespace Roguelike_RPG_Console_Game
     public class GameItem
     {
         public string name { get; protected set; }
+        public string info { get; protected set; }
         public int x;
         public int y;
-        protected int cost;
+        public int cost { get; protected set; }
 
         public GameItem(string name, int cost)
         {

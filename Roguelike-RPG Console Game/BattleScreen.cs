@@ -32,7 +32,6 @@ namespace Roguelike_RPG_Console_Game
                 Console.WriteLine();
                 Console.WriteLine("Attack: A");
                 Console.WriteLine("Bag: B");
-                Console.WriteLine("Run: R");
 
                 ConsoleKey key = Console.ReadKey().Key;
 

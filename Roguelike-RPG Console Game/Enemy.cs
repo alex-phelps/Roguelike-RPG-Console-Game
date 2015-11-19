@@ -20,14 +20,14 @@ namespace Roguelike_RPG_Console_Game
             {
                 string healthBar = "[";
 
-                for (int i = 8; i > 0; i--)
+                for (int i = 9; i > 0; i--)
                 {
-                    if ((float)health >= (float)(maxHealth * (i / 8f)))
+                    if ((float)health >= (float)(maxHealth * (i / 9f)))
                         healthBar += "█";
                     else healthBar += " ";
                 }
 
-                healthBar += "]";
+                healthBar += "█]";
 
                 return healthBar;
             }

@@ -13,6 +13,7 @@ namespace Roguelike_RPG_Console_Game
         public int[] exitPos { get; private set; }
 
         private Random random;
+        private Shopkeeper shopkeeper;
         private int coinCount;
         private int[,] coinPos;
         private int enemyCount;
@@ -73,6 +74,28 @@ namespace Roguelike_RPG_Console_Game
                     items.Add(new HealthTonicBasic(x, y));
                 }
             }
+        }
+
+        public Room(int width, int height, Shopkeeper shopkeeper)
+        {
+            random = new Random();
+
+            this.width = width;
+            this.height = height;
+            this.shopkeeper = shopkeeper;
+            this.coinCount = 0;
+            this.enemyCount = 0;
+
+            enemies = new List<Enemy>();
+            items = new List<GameItem>();
+
+            map = new char[height, (width + 1)];
+            coinPos = new int[coinCount, 2];
+
+            exitPos = new int[2] {height - 2, (width - 1) / 2};
+
+            shopkeeper.y = 2;
+            shopkeeper.x = (width - 1) / 2;
         }
 
         public bool Update(Player player)
@@ -147,12 +170,23 @@ namespace Roguelike_RPG_Console_Game
                 enemies.Remove(e);
             }
 
+            if (shopkeeper != null)
+            {
+                map[shopkeeper.y, shopkeeper.x] = shopkeeper.ToChar();
+
+                if (player.x == shopkeeper.x && player.y == shopkeeper.y)
+                {
+                    shopkeeper.Shop(player);
+                }
+            }
+
 
             map[player.y, player.x] = '@';
 
             return false;
 
         }
+
         public override string ToString()
         {
             string s = "";

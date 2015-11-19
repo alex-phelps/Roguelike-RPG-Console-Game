@@ -14,14 +14,14 @@ namespace Roguelike_RPG_Console_Game
             {
                 string healthBar = "[";
 
-                for (int i = 1; i <= 8; i++)
+                for (int i = 11; i > 0; i--)
                 {
-                    if ((float)health >= (float)(maxHealth * (i / 8f)))
+                    if ((float)health >= (float)(maxHealth * (i / 11f)))
                         healthBar += "█";
                     else healthBar += " ";
                 }
 
-                healthBar += "]";
+                healthBar += "█]";
 
                 return healthBar;
             }
@@ -166,6 +166,8 @@ namespace Roguelike_RPG_Console_Game
 
                     Console.WriteLine(item.name);
                 }
+
+                Console.WriteLine("Info: " + inventory[selectedItem].info + "\n");
 
                 ConsoleKey key = Console.ReadKey().Key;
 

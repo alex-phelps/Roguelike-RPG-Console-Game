@@ -14,6 +14,7 @@ namespace Roguelike_RPG_Console_Game
             : base(name, cost)
         {
             this.damage = damage;
+            info = "A weapon that deals " + damage + " damage.";
         }
 
         public override bool UseItem(Player player)

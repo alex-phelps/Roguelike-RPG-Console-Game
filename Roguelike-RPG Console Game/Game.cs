@@ -10,13 +10,13 @@ namespace Roguelike_RPG_Console_Game
     {
         static void Main(string[] args)
         {
-            Weapon woodSword = new Weapon("Wood Sword", 1, 2);
+            Weapon woodSword = new Weapon("Wood Sword", 1, 30);
             Player player = new Player(woodSword);
             RoomGenerator roomGenerator = new RoomGenerator(player);
 
             while (true)
             {
-                Room room = roomGenerator.GenRandomRoom();
+                Room room = roomGenerator.NextRoom();
                 player.x = room.width / 2;
                 player.y = room.height / 2;
 

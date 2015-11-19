@@ -9,22 +9,23 @@ namespace Roguelike_RPG_Console_Game
     public class HealthTonicBasic : GameItem
     {
         public HealthTonicBasic()
-            : base("Basic Health Tonic", 10)
+            : base("Basic Health Tonic", 70)
         {
+            info = "Heals 40 health.";
         }
 
         public HealthTonicBasic(int x, int y)
-            : base("Basic Health Tonic", 10, x, y)
+            : base("Basic Health Tonic", 70, x, y)
         {
         }
 
         public override bool UseItem(Player player)
         {
-            player.health += 25;
+            player.health += 40;
             if (player.health > player.maxHealth)
                 player.health = player.maxHealth;
 
-            Console.WriteLine("You used the Health Tonic!\nIt restored 25 health!");
+            Console.WriteLine("You used the Health Tonic!\nIt restored 40 health!");
             return true;
         }
     }
