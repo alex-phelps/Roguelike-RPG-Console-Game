@@ -123,13 +123,13 @@ namespace Roguelike_RPG_Console_Game
 
                 exp -= expNeeded;
                 level++;
-                expNeeded = Convert.ToInt32(expNeeded * 1.25f);
+                expNeeded = Convert.ToInt32(expNeeded * 1.4f);
 
                 Random random = new Random();
 
-                int newAttack = attackDamage + random.Next(0, 5);
-                int newDefence = defence + random.Next(0, 3);
-                int newHealth = maxHealth + random.Next(0, 9);
+                int newAttack = attackDamage + random.Next(0, 4);
+                int newDefence = defence + random.Next(0, 5);
+                int newHealth = maxHealth + random.Next(0, 11);
 
                 Console.WriteLine("HP: " + maxHealth + " → " + newHealth + " +" + (newHealth - maxHealth));
                 Console.WriteLine("Att: " + attackDamage + " → " + newAttack + " +" + (newAttack - attackDamage));

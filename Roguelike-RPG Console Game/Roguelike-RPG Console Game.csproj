@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleScreen.cs" />
+    <Compile Include="Boss.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="GameItem.cs" />
     <Compile Include="HealthTonicBasic.cs" />
@@ -74,6 +75,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Weapon.cs" />
+    <Compile Include="Revenant.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

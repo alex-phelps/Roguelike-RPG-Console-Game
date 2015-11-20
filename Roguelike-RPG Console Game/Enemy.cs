@@ -32,8 +32,8 @@ namespace Roguelike_RPG_Console_Game
                 return healthBar;
             }
         }
-        public int x { get; protected set; }
-        public int y { get; protected set; }
+        public int x;
+        public int y;
         public bool alive { get; protected set; }
         public int expDropped { get; protected set; }
         public int goldDropped { get; protected set; }
@@ -60,7 +60,7 @@ namespace Roguelike_RPG_Console_Game
             alive = true;
         }
 
-        public void Update(Player player)
+        public virtual void Update(Player player)
         {
             if (Math.Abs(player.x - x) > Math.Abs(player.y - y))
             {

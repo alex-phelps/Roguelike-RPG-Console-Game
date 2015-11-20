@@ -39,7 +39,11 @@ namespace Roguelike_RPG_Console_Game
             }
             else if (player.dungeonLevel == 9)
             {
-                return new Room(10, 10, new Shopkeeper(1));
+                return new Room(11, 15, new Shopkeeper(1));
+            }
+            else if (player.dungeonLevel == 10)
+            {
+                return new Room(15, 19, new Revenant());
             }
 
             return new Room(width, height, coinCount, enemies, enemyCount, items);

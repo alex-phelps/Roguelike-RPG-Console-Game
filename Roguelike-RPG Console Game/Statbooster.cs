@@ -15,7 +15,7 @@ namespace Roguelike_RPG_Console_Game
         {
             this.stat = stat;
             this.level = level;
-            info = "Boosts your" + stat.ToLower() + " stat by " + level + " amount.";
+            info = "Boosts your " + stat.ToLower() + " stat by " + level + " amount.";
         }
 
         public override bool UseItem(Player player)

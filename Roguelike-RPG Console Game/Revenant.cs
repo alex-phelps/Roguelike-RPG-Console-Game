@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace Roguelike_RPG_Console_Game
 {
-    public class WeakZombie : Enemy
+    public class Revenant : Boss
     {
-        public WeakZombie(int x, int y)
-            : base(x, y)
+        public Revenant() 
+            : base()
         {
-            name = "Zombie";
-            random = new Random();
-            level = random.Next(5, 9);
-            int modifier = Convert.ToInt32(level * 1.5f);
+            name = "Revenant";
+            level = 12;
+            int modifier = Convert.ToInt32(1.5f * level);
 
-            baseHealth = 10;
-            baseAttack = 3;
-            baseDefence = 2;
-            expDropBase = 4;
-            goldDropBase = 2;
+            baseHealth = 12;
+            baseAttack = 4;
+            baseDefence = 4;
+            expDropBase = 7;
+            goldDropBase = 8;
 
             maxHealth = baseHealth + modifier;
             attackDamage = baseAttack + modifier;
@@ -33,7 +32,7 @@ namespace Roguelike_RPG_Console_Game
 
         public override char ToChar()
         {
-            return '¶';
+            return '₧';
         }
     }
 }

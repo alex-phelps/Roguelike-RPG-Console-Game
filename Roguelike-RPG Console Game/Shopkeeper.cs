@@ -36,7 +36,7 @@ namespace Roguelike_RPG_Console_Game
             {
 
                 Console.Clear();
-                Console.WriteLine("##Shop##\nGold: " + player.gold);
+                Console.WriteLine("####Shop####\nGold: " + player.gold + "\n\nS: Sell Items\n");
 
                 if (!(selectedItem <= stock.Count - 1))
                     selectedItem = stock.Count - 1;
@@ -74,10 +74,21 @@ namespace Roguelike_RPG_Console_Game
                         player.inventory.Add(stock[selectedItem]);
                         player.gold -= stock[selectedItem].cost;
                         Console.WriteLine("You bought a " + stock[selectedItem].name + "!");
-                    }
-                    else Console.WriteLine("You can't afford that!");
 
-                    Console.ReadKey();
+                        if (stock[selectedItem] is Weapon)
+                        {
+                            Console.WriteLine("Would you like to equip your new " + stock[selectedItem].name + "?");
+
+                            if (Console.ReadKey().Key == ConsoleKey.Y)
+                                player.weapon = (Weapon)stock[selectedItem];
+                        }
+                        else Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("You can't afford that!");
+                        Console.ReadKey();
+                    }
                 }
                 if (key == ConsoleKey.B || key == ConsoleKey.S)
                 {
@@ -87,7 +98,7 @@ namespace Roguelike_RPG_Console_Game
                     {
 
                         Console.Clear();
-                        Console.WriteLine("##Sell##\nGold: " + player.gold);
+                        Console.WriteLine("####Sell####\nGold: " + player.gold);
 
                         if (!(selectedItem2 <= player.inventory.Count - 1))
                             selectedItem2 = player.inventory.Count - 1;
@@ -121,20 +132,20 @@ namespace Roguelike_RPG_Console_Game
                         if (key2 == ConsoleKey.Enter)
                         {
                             Console.Clear();
-                            Console.Write("Would you like to sell your" + player.inventory[selectedItem2].name + " for ");
+                            Console.Write("Would you like to sell your " + player.inventory[selectedItem2].name + " for ");
                             Console.WriteLine(player.inventory[selectedItem2].cost + " gold?");
 
                             ConsoleKey key3 = Console.ReadKey().Key;
 
                             if (key3 == ConsoleKey.Y)
                             {
-                                if (player.inventory[selectedItem] is Weapon && player.weapon == (Weapon)player.inventory[selectedItem])
+                                if (player.inventory[selectedItem2] is Weapon && player.weapon == (Weapon)player.inventory[selectedItem2])
                                 {
                                     player.weapon = new Weapon("Fist", 0, 0);
                                 }
 
                                 player.gold += player.inventory[selectedItem2].cost;
-                                player.inventory.Remove(player.inventory[selectedItem]);
+                                player.inventory.Remove(player.inventory[selectedItem2]);
                             }
                         }
                         if (key2 == ConsoleKey.Escape)

@@ -98,6 +98,29 @@ namespace Roguelike_RPG_Console_Game
             shopkeeper.x = (width - 1) / 2;
         }
 
+        public Room(int width, int height, Boss boss)
+        {
+            random = new Random();
+
+            this.width = width;
+            this.height = height;
+            this.coinCount = 0;
+            this.enemyCount = 0;
+
+            enemies = new List<Enemy>();
+            items = new List<GameItem>();
+
+            enemies.Add(boss);
+
+            map = new char[height, (width + 1)];
+            coinPos = new int[coinCount, 2];
+
+            exitPos = new int[2] { height - 2, (width - 1) / 2 };
+
+            boss.y = 2;
+            boss.x = (width - 1) / 2;
+        }
+
         public bool Update(Player player)
         {
             for (int y = 0; y < height; y++)
@@ -156,7 +179,7 @@ namespace Roguelike_RPG_Console_Game
                     BattleScreen battle = new BattleScreen(player, e);
                     if (battle.DoBattle())
                         deadEnemies.Add(e);
-                    else System.Environment.Exit(0);
+                    else Environment.Exit(0);
                 }
             }
 
