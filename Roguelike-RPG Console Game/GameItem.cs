@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Roguelike_RPG_Console_Game
 {
-    public enum RandomItemType
-    {
-        basicHealthTonic
-    }
-
+    
     public class GameItem
     {
         public string name { get; protected set; }
@@ -37,6 +33,11 @@ namespace Roguelike_RPG_Console_Game
             Console.WriteLine("NO USE");
 
             return true;
+        }
+
+        public virtual char ToChar()
+        {
+            return 'º';
         }
     }
 }

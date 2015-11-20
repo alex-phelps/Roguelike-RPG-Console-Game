@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace Roguelike_RPG_Console_Game
 {
-    public enum EnemyType
-    {
-        rat,
-        weakZombie
-    }
-
+    
     public class Enemy
     {
         public string healthBar

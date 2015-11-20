@@ -8,6 +8,8 @@ namespace Roguelike_RPG_Console_Game
 {
     public class Boss : Enemy
     {
+        public GameItem itemDrop { get; protected set; }
+
         public Boss() : base(0, 0)
         {
         }

@@ -59,8 +59,11 @@
     <Compile Include="BattleScreen.cs" />
     <Compile Include="Boss.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="GameItem.cs" />
     <Compile Include="HealthTonicBasic.cs" />
+    <Compile Include="MagicWeapon.cs" />
+    <Compile Include="NoviceFireTome.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

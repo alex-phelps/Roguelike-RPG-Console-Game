@@ -33,6 +33,7 @@ namespace Roguelike_RPG_Console_Game
         public int health;
         public int attackDamage = 4;
         public int defence = 0;
+        public int magic = 0;
         public int exp = 0;
         public int gold = 0;
         public int dungeonLevel = 1;
@@ -123,21 +124,24 @@ namespace Roguelike_RPG_Console_Game
 
                 exp -= expNeeded;
                 level++;
-                expNeeded = Convert.ToInt32(expNeeded * 1.4f);
+                expNeeded = Convert.ToInt32(expNeeded * 1.25f);
 
                 Random random = new Random();
 
                 int newAttack = attackDamage + random.Next(0, 4);
+                int newMagic = magic + random.Next(0, 4);
                 int newDefence = defence + random.Next(0, 5);
                 int newHealth = maxHealth + random.Next(0, 11);
 
                 Console.WriteLine("HP: " + maxHealth + " → " + newHealth + " +" + (newHealth - maxHealth));
                 Console.WriteLine("Att: " + attackDamage + " → " + newAttack + " +" + (newAttack - attackDamage));
+                Console.WriteLine("Mag: " + magic + " → " + newMagic + " +" + (newMagic - magic));
                 Console.WriteLine("Def: " + defence + " → " + newDefence + " +" + (newDefence - defence));
 
                 health += newHealth - maxHealth;
 
                 attackDamage = newAttack;
+                magic = newMagic;
                 maxHealth = newHealth;
                 defence = newDefence;
 
@@ -153,7 +157,7 @@ namespace Roguelike_RPG_Console_Game
             {
 
                 Console.Clear();
-                Console.WriteLine("##Inventory##");
+                Console.WriteLine("##Bag## ==Stats==\n");
 
                 if (!(selectedItem <= inventory.Count - 1))
                     selectedItem = inventory.Count - 1;
@@ -190,8 +194,32 @@ namespace Roguelike_RPG_Console_Game
 
                     Console.ReadKey();
                 }
-                if (key == ConsoleKey.Escape)
-                    break;
+                if (key == ConsoleKey.Escape || key == ConsoleKey.B)
+                    return;
+                if (key == ConsoleKey.RightArrow)
+                {
+                    while (true)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("==Bag== ##Stats##\n");
+                        Console.WriteLine("Level: " + level);
+                        Console.WriteLine("Exp: " + exp + " / " + expNeeded);
+                        Console.WriteLine();
+                        Console.WriteLine("Gold: " + gold + "\n");
+                        Console.WriteLine("Health: " + health + " / " + maxHealth);
+                        Console.WriteLine("Weapon: " + weapon.name);
+                        Console.WriteLine("\nAttack: " + attackDamage);
+                        Console.WriteLine("Magic: " + magic);
+                        Console.WriteLine("Defense: " + defence);
+
+                        ConsoleKey key2 = Console.ReadKey().Key;
+
+                        if (key2 == ConsoleKey.LeftArrow)
+                            break;
+                        if (key2 == ConsoleKey.B || key2 == ConsoleKey.Escape)
+                            return;
+                    }
+                }
             }
         }
     }

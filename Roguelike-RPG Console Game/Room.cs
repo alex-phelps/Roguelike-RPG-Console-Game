@@ -14,15 +14,17 @@ namespace Roguelike_RPG_Console_Game
 
         private Random random;
         private Shopkeeper shopkeeper;
+        private Boss boss;
         private int coinCount;
         private int[,] coinPos;
         private int enemyCount;
         private List<Enemy> enemies;
         private List<GameItem> items;
+        private bool exitOpen = true;
 
         private char[,] map;
 
-        public Room(int width, int height, int coinCount, List<EnemyType> enemyTypes, int enemyCount, List<RandomItemType> randomItemType)
+        public Room(int width, int height, int coinCount, List<Enums.EnemyType> enemyTypes, int enemyCount, List<Enums.RandomItemType> randomItemType)
         {
             random = new Random();
 
@@ -51,25 +53,25 @@ namespace Roguelike_RPG_Console_Game
             for (int i = 0; i < enemyCount; i++)
             {
                 System.Threading.Thread.Sleep(10);
-                EnemyType enemyType = enemyTypes.ElementAt(random.Next(enemyTypes.Count));
+                Enums.EnemyType enemyType = enemyTypes.ElementAt(random.Next(enemyTypes.Count));
 
                 int x = random.Next(1, width - 1);
                 int y = random.Next(1, height - 1);
 
-                if (enemyType == EnemyType.rat)
+                if (enemyType == Enums.EnemyType.rat)
                     enemies.Add(new Rat(x, y));
-                if (enemyType == EnemyType.weakZombie)
+                if (enemyType == Enums.EnemyType.weakZombie)
                     enemies.Add(new WeakZombie(x, y));
             }
 
             if (random.Next(0, 2) == 0)
             {
-                RandomItemType itemType = randomItemType.ElementAt(random.Next(randomItemType.Count));
+                Enums.RandomItemType itemType = randomItemType.ElementAt(random.Next(randomItemType.Count));
 
                 int x = random.Next(1, width - 1);
                 int y = random.Next(1, height - 1);
 
-                if (itemType == RandomItemType.basicHealthTonic)
+                if (itemType == Enums.RandomItemType.basicHealthTonic)
                 {
                     items.Add(new HealthTonicBasic(x, y));
                 }
@@ -107,10 +109,12 @@ namespace Roguelike_RPG_Console_Game
             this.coinCount = 0;
             this.enemyCount = 0;
 
+            exitOpen = false;
+
             enemies = new List<Enemy>();
             items = new List<GameItem>();
 
-            enemies.Add(boss);
+            this.boss = boss;
 
             map = new char[height, (width + 1)];
             coinPos = new int[coinCount, 2];
@@ -150,17 +154,20 @@ namespace Roguelike_RPG_Console_Game
 
             }
 
-            map[exitPos[0], exitPos[1]] = '█';
+            if (exitOpen)
+            {
+                map[exitPos[0], exitPos[1]] = '█';
 
-            if (exitPos[0] == player.y && exitPos[1] == player.x)
-                return true;
+                if (exitPos[0] == player.y && exitPos[1] == player.x)
+                    return true;
+            }
 
             List<Enemy> deadEnemies = new List<Enemy>();
             List<GameItem> collectedItems = new List<GameItem>();
 
             foreach (GameItem item in items)
             {
-                map[item.y, item.x] = 'º';
+                map[item.y, item.x] = item.ToChar();
 
                 if (item.x == player.x && item.y == player.y)
                 {
@@ -200,6 +207,28 @@ namespace Roguelike_RPG_Console_Game
                 if (player.x == shopkeeper.x && player.y == shopkeeper.y)
                 {
                     shopkeeper.Shop(player);
+                    player.y++;
+                }
+            }
+
+            if (boss != null)
+            {
+                map[boss.y, boss.x] = boss.ToChar();
+
+                if (player.x == boss.x && player.y == boss.y)
+                {
+                    BattleScreen battle = new BattleScreen(player, boss);
+                    if (battle.DoBattle())
+                    {
+                        player.y++;
+                        exitOpen = true;
+                        map[boss.y, boss.x] = boss.itemDrop.ToChar();
+                        boss.itemDrop.x = boss.x;
+                        boss.itemDrop.y = boss.y;
+                        items.Add(boss.itemDrop);
+                        boss = null;
+                    }
+                    else Environment.Exit(0);
                 }
             }
 

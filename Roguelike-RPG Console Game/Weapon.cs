@@ -9,6 +9,7 @@ namespace Roguelike_RPG_Console_Game
     public class Weapon : GameItem
     {
         public int damage { get; private set; }
+        public Enums.WeaponEffect effect = Enums.WeaponEffect.none;
 
         public Weapon(string name, int damage, int cost)
             : base(name, cost)

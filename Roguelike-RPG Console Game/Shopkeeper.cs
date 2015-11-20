@@ -77,7 +77,7 @@ namespace Roguelike_RPG_Console_Game
 
                         if (stock[selectedItem] is Weapon)
                         {
-                            Console.WriteLine("Would you like to equip your new " + stock[selectedItem].name + "?");
+                            Console.WriteLine("Would you like to equip your new " + stock[selectedItem].name + "? (y/n)");
 
                             if (Console.ReadKey().Key == ConsoleKey.Y)
                                 player.weapon = (Weapon)stock[selectedItem];
@@ -131,9 +131,9 @@ namespace Roguelike_RPG_Console_Game
                         }
                         if (key2 == ConsoleKey.Enter)
                         {
-                            Console.Clear();
+                            Console.WriteLine();
                             Console.Write("Would you like to sell your " + player.inventory[selectedItem2].name + " for ");
-                            Console.WriteLine(player.inventory[selectedItem2].cost + " gold?");
+                            Console.WriteLine(player.inventory[selectedItem2].cost + " gold? (y/n)");
 
                             ConsoleKey key3 = Console.ReadKey().Key;
 

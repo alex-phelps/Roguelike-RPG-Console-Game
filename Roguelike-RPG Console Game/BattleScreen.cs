@@ -31,7 +31,7 @@ namespace Roguelike_RPG_Console_Game
                 Console.WriteLine("Your Health: " + player.healthBar);
                 Console.WriteLine();
                 Console.WriteLine("Attack: A");
-                Console.WriteLine("Bag: B");
+                Console.WriteLine("Inventory: B");
 
                 ConsoleKey key = Console.ReadKey().Key;
 

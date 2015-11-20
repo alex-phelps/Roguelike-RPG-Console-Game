@@ -11,12 +11,13 @@ namespace Roguelike_RPG_Console_Game
         public HealthTonicBasic()
             : base("Basic Health Tonic", 70)
         {
-            info = "Heals 40 health.";
+            info = "Heals 40 health";
         }
 
         public HealthTonicBasic(int x, int y)
             : base("Basic Health Tonic", 70, x, y)
         {
+            info = "Heals 40 health";
         }
 
         public override bool UseItem(Player player)

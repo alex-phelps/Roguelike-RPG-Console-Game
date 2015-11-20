@@ -14,6 +14,15 @@ namespace Roguelike_RPG_Console_Game
             Player player = new Player(woodSword);
             RoomGenerator roomGenerator = new RoomGenerator(player);
 
+
+            Console.WriteLine("###Controls###");
+            Console.WriteLine("\nArrow Keys: Move");
+            Console.WriteLine("Enter: Select");
+            Console.WriteLine("Escape: Back");
+            Console.WriteLine("B: Inventory");
+
+            Console.ReadKey();
+
             while (true)
             {
                 Room room = roomGenerator.NextRoom();

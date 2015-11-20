@@ -14,6 +14,7 @@ namespace Roguelike_RPG_Console_Game
             name = "Revenant";
             level = 12;
             int modifier = Convert.ToInt32(1.5f * level);
+            itemDrop = new NoviceFireTome();
 
             baseHealth = 12;
             baseAttack = 4;
