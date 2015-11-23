@@ -6,27 +6,29 @@ using System.Threading.Tasks;
 
 namespace Roguelike_RPG_Console_Game
 {
-    public class Enums
+    public enum EnemyType
     {
-        public enum EnemyType
-        {
-            rat,
-            weakZombie
-        }
+        rat,
+        weakZombie
+    }
 
-        public enum RandomItemType
-        {
-            basicHealthTonic
-        }
+    public enum RandomItemType
+    {
+        basicHealthTonic
+    }
 
-        public enum WeaponEffect
-        {
-            none,
-            penetrate,
-            burn,
-            wisdom,
-            midas
-        }
+    public enum WeaponEffect
+    {
+        none,
+        penetrate,
+        burn,
+        wisdom,
+        midas
+    }
 
+    public enum StatusEffect
+    {
+        none,
+        burned
     }
 }

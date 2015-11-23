@@ -13,6 +13,7 @@ namespace Roguelike_RPG_Console_Game
             get
             {
                 string healthBar = "[";
+                string statusString ="";
 
                 for (int i = 11; i > 0; i--)
                 {
@@ -23,7 +24,10 @@ namespace Roguelike_RPG_Console_Game
 
                 healthBar += "█]";
 
-                return healthBar;
+                if (status == StatusEffect.burned)
+                    statusString = "\n(Burned)";
+
+                return healthBar + statusString;
             }
         }
 
@@ -33,6 +37,7 @@ namespace Roguelike_RPG_Console_Game
         public int health;
         public int attackDamage = 4;
         public int defence = 0;
+        public int resist = 0;
         public int magic = 0;
         public int exp = 0;
         public int gold = 0;
@@ -41,6 +46,8 @@ namespace Roguelike_RPG_Console_Game
         public Weapon weapon;
         public int x = 0;
         public int y = 0;
+
+        public StatusEffect status = StatusEffect.none;
 
         private int expNeeded = 10;
 
@@ -90,8 +97,11 @@ namespace Roguelike_RPG_Console_Game
             }
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, WeaponEffect effect)
         {
+            if (effect == WeaponEffect.burn)
+                status = StatusEffect.burned;
+
             damage -= defence / 2;
 
             if (damage < 0)
@@ -99,13 +109,40 @@ namespace Roguelike_RPG_Console_Game
 
             health -= damage;
 
-            if (health < 0)
+            if (status == StatusEffect.burned)
+                health -= 5;
+
+            if (health <= 0)
+                alive = false;
+        }
+
+        public void TakeMagicDamage(int magicDamage, WeaponEffect effect)
+        {
+            if (effect == WeaponEffect.burn)
+                status = StatusEffect.burned;
+
+            magicDamage -= resist / 3;
+
+            if (magicDamage < 0)
+                magicDamage = 0;
+
+            health -= magicDamage;
+
+            if (status == StatusEffect.burned)
+                health -= 5;
+
+            if (health <= 0)
                 alive = false;
         }
 
         public void Attack(Enemy enemy)
         {
-            enemy.TakeDamage(attackDamage + weapon.damage);
+            enemy.TakeDamage(attackDamage + weapon.damage, weapon.effect);
+        }
+
+        public void MagicAttack(Enemy enemy, MagicWeapon magicWeapon)
+        {
+            enemy.TakeMagicDamage(magicWeapon.magicDamage + magic, magicWeapon.effect);
         }
 
         public void Loot(Enemy enemy)
@@ -131,12 +168,14 @@ namespace Roguelike_RPG_Console_Game
                 int newAttack = attackDamage + random.Next(0, 4);
                 int newMagic = magic + random.Next(0, 4);
                 int newDefence = defence + random.Next(0, 5);
+                int newResist = resist + random.Next(0, 3);
                 int newHealth = maxHealth + random.Next(0, 11);
 
                 Console.WriteLine("HP: " + maxHealth + " → " + newHealth + " +" + (newHealth - maxHealth));
                 Console.WriteLine("Att: " + attackDamage + " → " + newAttack + " +" + (newAttack - attackDamage));
-                Console.WriteLine("Mag: " + magic + " → " + newMagic + " +" + (newMagic - magic));
+                Console.WriteLine("Mag: " + magic + " → " + newResist + " +" + (newResist - resist));
                 Console.WriteLine("Def: " + defence + " → " + newDefence + " +" + (newDefence - defence));
+                Console.WriteLine("Res: " + resist + " → " + newMagic + " +" + (newMagic - magic));
 
                 health += newHealth - maxHealth;
 
@@ -144,6 +183,7 @@ namespace Roguelike_RPG_Console_Game
                 magic = newMagic;
                 maxHealth = newHealth;
                 defence = newDefence;
+                resist = newResist;
 
                 Console.ReadKey();
             }

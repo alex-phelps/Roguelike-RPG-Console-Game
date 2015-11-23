@@ -21,12 +21,16 @@ namespace Roguelike_RPG_Console_Game
             baseDefence = 4;
             expDropBase = 7;
             goldDropBase = 8;
+            baseResist = 2;
+            baseMagic = 0;
 
             maxHealth = baseHealth + modifier;
             attackDamage = baseAttack + modifier;
             defence = baseDefence + modifier;
             expDropped = expDropBase + modifier;
             goldDropped = goldDropBase + modifier;
+            resist = baseResist + modifier;
+            magic = baseMagic + modifier;
 
             health = maxHealth;
         }

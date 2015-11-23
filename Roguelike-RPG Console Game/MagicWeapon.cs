@@ -8,8 +8,8 @@ namespace Roguelike_RPG_Console_Game
 {
     public class MagicWeapon : GameItem
     {
-        protected int magicDamage;
-        protected Enums.WeaponEffect effect = Enums.WeaponEffect.none;
+        public int magicDamage { get; protected set; }
+        public WeaponEffect effect = WeaponEffect.none;
 
         public MagicWeapon(int magicDamage, string name, int cost) 
             : base(name, cost)

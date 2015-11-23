@@ -40,10 +40,17 @@ namespace Roguelike_RPG_Console_Game
         protected int health;
         protected int baseAttack;
         protected int attackDamage;
+        protected int baseMagic;
+        protected int magic;
         protected int baseDefence;
         protected int defence;
+        protected int baseResist;
+        protected int resist;
         protected int expDropBase;
         protected int goldDropBase;
+
+        public WeaponEffect effect = WeaponEffect.none;
+        public StatusEffect status = StatusEffect.none;
 
         protected string name;
 
@@ -98,8 +105,11 @@ namespace Roguelike_RPG_Console_Game
             }
         }
 
-        public virtual void TakeDamage(int damage)
+        public virtual void TakeDamage(int damage, WeaponEffect effect)
         {
+            if (effect == WeaponEffect.burn)
+                status = StatusEffect.burned;
+
             damage -= defence / 2;
 
             if (damage < 0)
@@ -107,13 +117,35 @@ namespace Roguelike_RPG_Console_Game
 
             health -= damage;
 
+            if (status == StatusEffect.burned)
+                health -= 5;
+
+            if (health <= 0)
+                alive = false;
+        }
+
+        public virtual void TakeMagicDamage(int magicDamage, WeaponEffect effect)
+        {
+            if (effect == WeaponEffect.burn)
+                status = StatusEffect.burned;
+
+            magicDamage -= resist / 3;
+
+            if (magicDamage < 0)
+                magicDamage = 0;
+
+            health -= magicDamage;
+
+            if (status == StatusEffect.burned)
+                health -= 5;
+
             if (health <= 0)
                 alive = false;
         }
 
         public void Attack(Player player)
         {
-            player.TakeDamage(attackDamage);
+            player.TakeDamage(attackDamage, effect);
         }
 
         public virtual char ToChar()
@@ -123,9 +155,15 @@ namespace Roguelike_RPG_Console_Game
 
         public override string ToString()
         {
+            string statusString = "";
+
+            if (status == StatusEffect.burned)
+                statusString = "(Burned)\n";
+
             return
                 "Level " + level + " " + name + "\n" +
                 "Health: " + healthBar + "\n" +
+                statusString +
                 "#####################\n" +
                 "IMAGE HERE\n" +
                 "#####################\n";

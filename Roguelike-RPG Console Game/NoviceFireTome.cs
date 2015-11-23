@@ -11,13 +11,13 @@ namespace Roguelike_RPG_Console_Game
         public NoviceFireTome()
             : base(8, "Novice Fire Tome", 400)
         {
-            effect = Enums.WeaponEffect.burn;
+            effect = WeaponEffect.burn;
             info = "A basic fire tome. Has a chance to burn the enemy.";
         }
 
         public override char ToChar()
         {
-            return '▥';
+            return '■';
         }
     }
 }

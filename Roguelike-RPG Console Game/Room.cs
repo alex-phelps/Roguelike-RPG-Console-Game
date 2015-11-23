@@ -24,7 +24,7 @@ namespace Roguelike_RPG_Console_Game
 
         private char[,] map;
 
-        public Room(int width, int height, int coinCount, List<Enums.EnemyType> enemyTypes, int enemyCount, List<Enums.RandomItemType> randomItemType)
+        public Room(int width, int height, int coinCount, List<EnemyType> enemyTypes, int enemyCount, List<RandomItemType> randomItemType)
         {
             random = new Random();
 
@@ -53,25 +53,25 @@ namespace Roguelike_RPG_Console_Game
             for (int i = 0; i < enemyCount; i++)
             {
                 System.Threading.Thread.Sleep(10);
-                Enums.EnemyType enemyType = enemyTypes.ElementAt(random.Next(enemyTypes.Count));
+                EnemyType enemyType = enemyTypes.ElementAt(random.Next(enemyTypes.Count));
 
                 int x = random.Next(1, width - 1);
                 int y = random.Next(1, height - 1);
 
-                if (enemyType == Enums.EnemyType.rat)
+                if (enemyType == EnemyType.rat)
                     enemies.Add(new Rat(x, y));
-                if (enemyType == Enums.EnemyType.weakZombie)
+                if (enemyType == EnemyType.weakZombie)
                     enemies.Add(new WeakZombie(x, y));
             }
 
             if (random.Next(0, 2) == 0)
             {
-                Enums.RandomItemType itemType = randomItemType.ElementAt(random.Next(randomItemType.Count));
+                RandomItemType itemType = randomItemType.ElementAt(random.Next(randomItemType.Count));
 
                 int x = random.Next(1, width - 1);
                 int y = random.Next(1, height - 1);
 
-                if (itemType == Enums.RandomItemType.basicHealthTonic)
+                if (itemType == RandomItemType.basicHealthTonic)
                 {
                     items.Add(new HealthTonicBasic(x, y));
                 }
