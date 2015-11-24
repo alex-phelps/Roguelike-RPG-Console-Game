@@ -14,11 +14,17 @@ namespace Roguelike_RPG_Console_Game
         public int x;
         public int y;
         public int cost { get; protected set; }
+        private Random random;
+        protected int randomId;
 
         public GameItem(string name, int cost)
         {
             this.cost = cost;
             this.name = name;
+
+            random = new Random();
+
+            randomId = random.Next(-255, 255);
         }
         public GameItem(string name, int cost, int x, int y)
         {
