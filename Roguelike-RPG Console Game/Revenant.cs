@@ -32,6 +32,8 @@ namespace Roguelike_RPG_Console_Game
             resist = baseResist + modifier;
             magic = baseMagic + modifier;
 
+            effect = WeaponEffect.curse;
+
             health = maxHealth;
         }
 

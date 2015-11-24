@@ -15,23 +15,28 @@ namespace Roguelike_RPG_Console_Game
         {
             this.stat = stat;
             this.level = level;
-            info = "Boosts your " + stat.ToLower() + " stat by " + level + " amount.";
+            info = "Boosts your " + stat.ToLower() + " stat.";
+        }
+        public Statbooster(string stat, int level, int x, int y)
+            : base("Level " + level + " " + stat + " Booster", level * 100, x, y)
+        {
+            this.stat = stat;
+            this.level = level;
+            info = "Boosts your " + stat.ToLower() + " stat.";
         }
 
         public override bool UseItem(Player player)
         {
-            if (stat.ToString() == "Attack")
-            {
+            if (stat == "Attack")
                 player.attackDamage += level;
-            }
-            else if (stat.ToString() == "Health")
-            {
-                player.health += level;
-            }
-            else if (stat.ToString() == "Defense")
-            {
+            else if (stat == "Health")
+                player.health += 5 * level;
+            else if (stat == "Defense")
                 player.defence += level;
-            }
+            else if (stat == "Magic")
+                player.magic += level;
+            else if (stat == "Resist")
+                player.resist += level;
 
             Console.WriteLine("You used your " + name + "!\nIt increased your " + stat.ToLower() + " stat!");
 

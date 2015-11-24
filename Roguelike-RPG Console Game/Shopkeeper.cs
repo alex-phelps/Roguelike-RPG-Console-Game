@@ -36,7 +36,7 @@ namespace Roguelike_RPG_Console_Game
             {
 
                 Console.Clear();
-                Console.WriteLine("####Shop####\nGold: " + player.gold + "\n\nS: Sell Items\n");
+                Console.WriteLine("###Buy### ===Sell===\nGold: " + player.gold);
 
                 if (!(selectedItem <= stock.Count - 1))
                     selectedItem = stock.Count - 1;
@@ -61,13 +61,13 @@ namespace Roguelike_RPG_Console_Game
                         selectedItem = stock.Count - 1;
                     else selectedItem--;
                 }
-                if (key == ConsoleKey.DownArrow)
+                else if (key == ConsoleKey.DownArrow)
                 {
                     if (selectedItem == stock.Count - 1)
                         selectedItem = 0;
                     else selectedItem++;
                 }
-                if (key == ConsoleKey.Enter)
+                else if (key == ConsoleKey.Enter)
                 {
                     if (player.gold >= stock[selectedItem].cost)
                     {
@@ -90,7 +90,7 @@ namespace Roguelike_RPG_Console_Game
                         Console.ReadKey();
                     }
                 }
-                if (key == ConsoleKey.B || key == ConsoleKey.S)
+                else if (key == ConsoleKey.RightArrow)
                 {
                     int selectedItem2 = 0;
 
@@ -98,7 +98,7 @@ namespace Roguelike_RPG_Console_Game
                     {
 
                         Console.Clear();
-                        Console.WriteLine("####Sell####\nGold: " + player.gold);
+                        Console.WriteLine("===Buy=== ###Sell###\nGold: " + player.gold);
 
                         if (!(selectedItem2 <= player.inventory.Count - 1))
                             selectedItem2 = player.inventory.Count - 1;
@@ -123,13 +123,13 @@ namespace Roguelike_RPG_Console_Game
                                 selectedItem2 = player.inventory.Count - 1;
                             else selectedItem2--;
                         }
-                        if (key2 == ConsoleKey.DownArrow)
+                        else if (key2 == ConsoleKey.DownArrow)
                         {
                             if (selectedItem2 == player.inventory.Count - 1)
                                 selectedItem2 = 0;
                             else selectedItem2++;
                         }
-                        if (key2 == ConsoleKey.Enter)
+                        else if (key2 == ConsoleKey.Enter)
                         {
                             Console.WriteLine();
                             Console.Write("Would you like to sell your " + player.inventory[selectedItem2].name + " for ");
@@ -148,11 +148,13 @@ namespace Roguelike_RPG_Console_Game
                                 player.inventory.Remove(player.inventory[selectedItem2]);
                             }
                         }
-                        if (key2 == ConsoleKey.Escape)
+                        else if (key2 == ConsoleKey.LeftArrow)
                             break;
+                        else if (key2 == ConsoleKey.Escape)
+                            return;
                     }
                 }
-                if (key == ConsoleKey.Escape)
+                else if (key == ConsoleKey.Escape)
                     break;
             }
         }

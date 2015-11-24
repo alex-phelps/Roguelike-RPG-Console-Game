@@ -35,8 +35,8 @@ namespace Roguelike_RPG_Console_Game
 
                     Console.Clear();
 
-                    Console.WriteLine("Level: " + player.level + "  Gold: " + player.gold + "  Room: " + player.dungeonLevel);
-                    Console.WriteLine("Exp: " + player.exp + " Health: " + player.healthBar);
+                    Console.WriteLine("Room: " + player.dungeonLevel);
+                    Console.WriteLine("Health: " + player.healthBar);
                     Console.WriteLine(roomString);
 
                     ConsoleKey key = Console.ReadKey().Key;

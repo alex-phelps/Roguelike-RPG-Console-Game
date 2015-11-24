@@ -32,6 +32,10 @@ namespace Roguelike_RPG_Console_Game
             this.name = name;
             this.x = x;
             this.y = y;
+
+            random = new Random();
+
+            randomId = random.Next(-255, 255);
         }
 
         public virtual bool UseItem(Player player)

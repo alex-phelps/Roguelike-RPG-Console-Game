@@ -9,12 +9,14 @@ namespace Roguelike_RPG_Console_Game
     public enum EnemyType
     {
         rat,
-        weakZombie
+        weakZombie,
+        boneman
     }
 
     public enum RandomItemType
     {
-        basicHealthTonic
+        basicHealthTonic,
+        statBooster
     }
 
     public enum WeaponEffect
@@ -23,12 +25,14 @@ namespace Roguelike_RPG_Console_Game
         penetrate,
         burn,
         wisdom,
-        midas
+        midas,
+        curse
     }
 
     public enum StatusEffect
     {
         none,
-        burned
+        burned,
+        cursed
     }
 }

@@ -19,7 +19,7 @@ namespace Roguelike_RPG_Console_Game
 
             baseHealth = 9;
             baseAttack = 3;
-            expDropBase = 2;
+            expDropBase = 3;
             goldDropBase = 2;
             baseDefence = 0;
             baseResist = 0;

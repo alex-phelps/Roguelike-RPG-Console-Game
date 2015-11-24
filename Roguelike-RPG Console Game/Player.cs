@@ -6,53 +6,27 @@ using System.Threading.Tasks;
 
 namespace Roguelike_RPG_Console_Game
 {
-    public class Player
+    public class Player : DamagableEntity
     {
-        public string healthBar
-        {
-            get
-            {
-                string healthBar = "[";
-                string statusString ="";
-
-                for (int i = 11; i > 0; i--)
-                {
-                    if ((float)health >= (float)(maxHealth * (i / 11f)))
-                        healthBar += "█";
-                    else healthBar += " ";
-                }
-
-                healthBar += "█]";
-
-                if (status == StatusEffect.burned)
-                    statusString = "\n(Burned)";
-
-                return healthBar + statusString;
-            }
-        }
-
-        public bool alive = true;
-        public int level = 1;
-        public int maxHealth = 100;
-        public int health;
-        public int attackDamage = 4;
-        public int defence = 0;
-        public int resist = 0;
-        public int magic = 0;
+        
         public int exp = 0;
         public int gold = 0;
         public int dungeonLevel = 1;
         public List<GameItem> inventory;
         public Weapon weapon;
-        public int x = 0;
-        public int y = 0;
-
-        public StatusEffect status = StatusEffect.none;
 
         private int expNeeded = 10;
 
         public Player(Weapon weapon)
+            : base()
         {
+            level = 1;
+            maxHealth = 100;
+            attackDamage = 4;
+            defence = 0;
+            resist = 0;
+            magic = 0;
+
             inventory = new List<GameItem>();
             this.weapon = weapon;
 
@@ -70,69 +44,36 @@ namespace Roguelike_RPG_Console_Game
                 if (y == 0 || y == room.height - 1)
                     y++;
             }
-            if (key == ConsoleKey.DownArrow)
+            else if (key == ConsoleKey.DownArrow)
             {
                 y++;
 
                 if (y == 0 || y == room.height - 1)
                     y--;
             }
-            if (key == ConsoleKey.LeftArrow)
+            else if (key == ConsoleKey.LeftArrow)
             {
                 x--;
 
                 if (x == 0 || x == room.width - 1)
                     x++;
             }
-            if (key == ConsoleKey.RightArrow)
+            else if (key == ConsoleKey.RightArrow)
             {
                 x++;
 
                 if (x == 0 || x == room.width - 1)
                     x--;
             }
-            if (key == ConsoleKey.B)
+            else if (key == ConsoleKey.B)
             {
                 CheckInventory();
             }
         }
 
-        public void TakeDamage(int damage, WeaponEffect effect)
+        public override char ToChar()
         {
-            if (effect == WeaponEffect.burn)
-                status = StatusEffect.burned;
-
-            damage -= defence / 2;
-
-            if (damage < 0)
-                damage = 0;
-
-            health -= damage;
-
-            if (status == StatusEffect.burned)
-                health -= 5;
-
-            if (health <= 0)
-                alive = false;
-        }
-
-        public void TakeMagicDamage(int magicDamage, WeaponEffect effect)
-        {
-            if (effect == WeaponEffect.burn)
-                status = StatusEffect.burned;
-
-            magicDamage -= resist / 3;
-
-            if (magicDamage < 0)
-                magicDamage = 0;
-
-            health -= magicDamage;
-
-            if (status == StatusEffect.burned)
-                health -= 5;
-
-            if (health <= 0)
-                alive = false;
+            return '@';
         }
 
         public void Attack(Enemy enemy)
@@ -165,17 +106,17 @@ namespace Roguelike_RPG_Console_Game
 
                 Random random = new Random();
 
-                int newAttack = attackDamage + random.Next(0, 4);
-                int newMagic = magic + random.Next(0, 4);
-                int newDefence = defence + random.Next(0, 5);
-                int newResist = resist + random.Next(0, 3);
+                int newAttack = attackDamage + random.Next(0, 3);
+                int newMagic = magic + random.Next(0, 3);
+                int newDefence = defence + random.Next(0, 3);
+                int newResist = resist + random.Next(0, 2);
                 int newHealth = maxHealth + random.Next(0, 11);
 
                 Console.WriteLine("HP: " + maxHealth + " → " + newHealth + " +" + (newHealth - maxHealth));
                 Console.WriteLine("Att: " + attackDamage + " → " + newAttack + " +" + (newAttack - attackDamage));
-                Console.WriteLine("Mag: " + magic + " → " + newResist + " +" + (newResist - resist));
+                Console.WriteLine("Mag: " + magic + " → " + newMagic + " +" + (newMagic - magic));
                 Console.WriteLine("Def: " + defence + " → " + newDefence + " +" + (newDefence - defence));
-                Console.WriteLine("Res: " + resist + " → " + newMagic + " +" + (newMagic - magic));
+                Console.WriteLine("Res: " + resist + " → " + newResist + " +" + (newResist - resist));
 
                 health += newHealth - maxHealth;
 
@@ -221,42 +162,65 @@ namespace Roguelike_RPG_Console_Game
                         selectedItem = inventory.Count - 1;
                     else selectedItem--;
                 }
-                if (key == ConsoleKey.DownArrow)
+                else if (key == ConsoleKey.DownArrow)
                 {
                     if (selectedItem == inventory.Count - 1)
                         selectedItem = 0;
                     else selectedItem++;
                 }
-                if (key == ConsoleKey.Enter)
+                else if (key == ConsoleKey.Enter)
                 {
                     if (inventory[selectedItem].UseItem(this))
                         inventory.RemoveAt(selectedItem);
 
                     Console.ReadKey();
                 }
-                if (key == ConsoleKey.Escape || key == ConsoleKey.B)
+                else if (key == ConsoleKey.Escape || key == ConsoleKey.B)
                     return;
-                if (key == ConsoleKey.RightArrow)
+                else if (key == ConsoleKey.RightArrow)
                 {
+                    bool hasMagic = false;
+                    List<MagicWeapon> magicWeapons = new List<MagicWeapon>();
+
+                    foreach (GameItem item in inventory)
+                    {
+                        if (item is MagicWeapon)
+                        {
+                            hasMagic = true;
+                            magicWeapons.Add((MagicWeapon)item);
+                        }
+                    }
+
                     while (true)
                     {
                         Console.Clear();
                         Console.WriteLine("==Bag== ##Stats##\n");
+                        Console.WriteLine("Room: " + dungeonLevel);
                         Console.WriteLine("Level: " + level);
                         Console.WriteLine("Exp: " + exp + " / " + expNeeded);
                         Console.WriteLine();
                         Console.WriteLine("Gold: " + gold + "\n");
                         Console.WriteLine("Health: " + health + " / " + maxHealth);
                         Console.WriteLine("Weapon: " + weapon.name);
-                        Console.WriteLine("\nAttack: " + attackDamage);
+                        if (hasMagic)
+                        {
+                            Console.WriteLine("Magic Weapons: ");
+                            foreach (MagicWeapon mw in magicWeapons)
+                            {
+                                Console.WriteLine("  " + mw.name);
+                            }
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine("Attack: " + attackDamage);
                         Console.WriteLine("Magic: " + magic);
                         Console.WriteLine("Defense: " + defence);
+                        Console.WriteLine("Resistance: " + resist);
 
                         ConsoleKey key2 = Console.ReadKey().Key;
 
                         if (key2 == ConsoleKey.LeftArrow)
                             break;
-                        if (key2 == ConsoleKey.B || key2 == ConsoleKey.Escape)
+                        else if (key2 == ConsoleKey.B || key2 == ConsoleKey.Escape)
                             return;
                     }
                 }

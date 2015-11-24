@@ -58,23 +58,38 @@ namespace Roguelike_RPG_Console_Game
                 int x = random.Next(1, width - 1);
                 int y = random.Next(1, height - 1);
 
-                if (enemyType == EnemyType.rat)
-                    enemies.Add(new Rat(x, y));
-                if (enemyType == EnemyType.weakZombie)
-                    enemies.Add(new WeakZombie(x, y));
+                if (!(x == width / 2 && y == height / 2))
+                {
+                    if (enemyType == EnemyType.rat)
+                        enemies.Add(new Rat(x, y));
+                    else if (enemyType == EnemyType.weakZombie)
+                        enemies.Add(new WeakZombie(x, y));
+                    else if (enemyType == EnemyType.boneman)
+                        enemies.Add(new Boneman(x, y));
+                }
             }
 
-            if (random.Next(0, 2) == 0)
+            RandomItemType itemType = randomItemType.ElementAt(random.Next(randomItemType.Count));
+
+            int itemx = random.Next(1, width - 1);
+            int itemy = random.Next(1, height - 1);
+
+            if (itemType == RandomItemType.basicHealthTonic)
+                items.Add(new HealthTonicBasic(itemx, itemy));
+            else if (itemType == RandomItemType.statBooster)
             {
-                RandomItemType itemType = randomItemType.ElementAt(random.Next(randomItemType.Count));
+                int stat = random.Next(0, 5);
 
-                int x = random.Next(1, width - 1);
-                int y = random.Next(1, height - 1);
-
-                if (itemType == RandomItemType.basicHealthTonic)
-                {
-                    items.Add(new HealthTonicBasic(x, y));
-                }
+                if (stat == 0)
+                    items.Add(new Statbooster("Attack", 1, itemx, itemy));
+                else if (stat == 1)
+                    items.Add(new Statbooster("Health", 1, itemx, itemy));
+                else if (stat == 2)
+                    items.Add(new Statbooster("Defense", 1, itemx, itemy));
+                else if (stat == 3)
+                    items.Add(new Statbooster("Resist", 1, itemx, itemy));
+                else if (stat == 4)
+                    items.Add(new Statbooster("Magic", 1, itemx, itemy));
             }
         }
 

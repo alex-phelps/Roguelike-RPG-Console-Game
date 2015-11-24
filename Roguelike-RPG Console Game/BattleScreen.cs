@@ -47,127 +47,117 @@ namespace Roguelike_RPG_Console_Game
 
                 ConsoleKey key = Console.ReadKey().Key;
 
-                switch (key)
+                if (key == ConsoleKey.A)
                 {
-                    case ConsoleKey.A:
+                    Console.Clear();
+                    Console.WriteLine(enemy.ToString());
+                    Console.WriteLine("Your Health: " + player.healthBar);
+                    Console.WriteLine();
+
+                    player.Attack(enemy);
+
+                    Console.Clear();
+                    Console.WriteLine(enemy.ToString());
+                    Console.WriteLine("Your Health: " + player.healthBar);
+                    Console.WriteLine();
+
+                    if (!enemy.alive)
+                    {
+                        battleWon = true;
+                        break;
+                    }
+
+                    System.Threading.Thread.Sleep(1000);
+                    enemy.Attack(player);
+
+                    if (!player.alive)
+                        battleWon = false;
+                }
+                else if (key == ConsoleKey.B)
+                    player.CheckInventory();
+                else if (key == ConsoleKey.M)
+                {
+                    List<MagicWeapon> magicWeapons = new List<MagicWeapon>();
+
+                    foreach (GameItem item in player.inventory)
+                    {
+                        if (item is MagicWeapon)
+                            magicWeapons.Add((MagicWeapon)item);
+                    }
+
+                    int selectedItem = 0;
+
+                    while (true)
+                    {
                         Console.Clear();
                         Console.WriteLine(enemy.ToString());
                         Console.WriteLine("Your Health: " + player.healthBar);
-                        Console.WriteLine();
+                        Console.WriteLine("\n");
 
-                        player.Attack(enemy);
-
-                        Console.Clear();
-                        Console.WriteLine(enemy.ToString());
-                        Console.WriteLine("Your Health: " + player.healthBar);
-                        Console.WriteLine();
-
-                        if (!enemy.alive)
+                        foreach (MagicWeapon m in magicWeapons)
                         {
-                            battleWon = true;
-                            break;
+                            if (magicWeapons.IndexOf(m) == selectedItem)
+                                Console.Write(">> ");
+                            else Console.Write("$  ");
+
+                            Console.WriteLine(m.name);
                         }
 
-                        System.Threading.Thread.Sleep(1000);
-                        enemy.Attack(player);
+                        Console.WriteLine("\nBack: Esc");
 
-                        if (!player.alive)
+                        ConsoleKey key2 = Console.ReadKey().Key;
+
+
+                        if (key == ConsoleKey.UpArrow)
                         {
-                            battleWon = false;
-                            break;
+                            if (selectedItem == 0)
+                                selectedItem = magicWeapons.Count - 1;
+                            else selectedItem--;
                         }
-
-                        break;
-                    
-                    case ConsoleKey.B:
-                        player.CheckInventory();
-                        break;
-
-                    case ConsoleKey.M:
-
-                        List<MagicWeapon> magicWeapons = new List<MagicWeapon>();
-
-                        foreach (GameItem item in player.inventory)
+                        else if (key2 == ConsoleKey.DownArrow)
                         {
-                            if (item is MagicWeapon)
-                                magicWeapons.Add((MagicWeapon)item);
+                            if (selectedItem == magicWeapons.Count - 1)
+                                selectedItem = 0;
+                            else selectedItem++;
                         }
-
-                        int selectedItem = 0;
-
-                        while (true)
+                        else if (key2 == ConsoleKey.Enter)
                         {
                             Console.Clear();
                             Console.WriteLine(enemy.ToString());
                             Console.WriteLine("Your Health: " + player.healthBar);
                             Console.WriteLine("\n");
 
-                            foreach (MagicWeapon m in magicWeapons)
+                            player.MagicAttack(enemy, magicWeapons[selectedItem]);
+
+                            Console.Clear();
+                            Console.WriteLine(enemy.ToString());
+                            Console.WriteLine("Your Health: " + player.healthBar);
+                            Console.WriteLine("\n");
+
+                            if (!enemy.alive)
                             {
-                                if (magicWeapons.IndexOf(m) == selectedItem)
-                                    Console.Write(">> ");
-                                else Console.Write("$  ");
-
-                                Console.WriteLine(m.name);
-                            }
-
-                            Console.WriteLine("\nBack: Esc");
-                            
-                            ConsoleKey key2 = Console.ReadKey().Key;
-
-
-                            if (key == ConsoleKey.UpArrow)
-                            {
-                                if (selectedItem == 0)
-                                    selectedItem = magicWeapons.Count - 1;
-                                else selectedItem--;
-                            }
-                            else if (key2 == ConsoleKey.DownArrow)
-                            {
-                                if (selectedItem == magicWeapons.Count - 1)
-                                    selectedItem = 0;
-                                else selectedItem++;
-                            }
-                            else if (key2 == ConsoleKey.Enter)
-                            {
-                                Console.Clear();
-                                Console.WriteLine(enemy.ToString());
-                                Console.WriteLine("Your Health: " + player.healthBar);
-                                Console.WriteLine("\n");
-
-                                player.MagicAttack(enemy, magicWeapons[selectedItem]);
-
-                                Console.Clear();
-                                Console.WriteLine(enemy.ToString());
-                                Console.WriteLine("Your Health: " + player.healthBar);
-                                Console.WriteLine("\n");
-
-                                if (!enemy.alive)
-                                {
-                                    battleWon = true;
-                                    break;
-                                }
-
-                                System.Threading.Thread.Sleep(1000);
-                                enemy.Attack(player);
-
-                                Console.Clear();
-                                Console.WriteLine(enemy.ToString());
-                                Console.WriteLine("Your Health: " + player.healthBar);
-                                Console.WriteLine("\n");
-
-                                if (!player.alive)
-                                {
-                                    battleWon = false;
-                                    break;
-                                }
-
-                            }
-                            else if (key2 == ConsoleKey.Escape)
+                                battleWon = true;
                                 break;
-                        }
+                            }
 
-                        break;
+                            System.Threading.Thread.Sleep(1000);
+                            enemy.Attack(player);
+
+                            Console.Clear();
+                            Console.WriteLine(enemy.ToString());
+                            Console.WriteLine("Your Health: " + player.healthBar);
+                            Console.WriteLine("\n");
+
+                            if (!player.alive)
+                            {
+                                battleWon = false;
+                                break;
+                            }
+
+                        }
+                        else if (key2 == ConsoleKey.Escape)
+                            break;
+                    }
                 }
             }
 
