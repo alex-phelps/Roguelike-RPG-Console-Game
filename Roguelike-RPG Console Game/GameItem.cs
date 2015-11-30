@@ -40,9 +40,9 @@ namespace Roguelike_RPG_Console_Game
 
         public virtual bool UseItem(Player player)
         {
-            Console.WriteLine("NO USE");
+            Console.WriteLine("You can't do anything with that right now!");
 
-            return true;
+            return false;
         }
 
         public virtual char ToChar()

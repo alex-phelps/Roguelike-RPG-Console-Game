@@ -12,27 +12,17 @@ namespace Roguelike_RPG_Console_Game
             : base(x, y)
         {
             name = "Zombie";
-            random = new Random();
             level = random.Next(5, 9);
-            int modifier = Convert.ToInt32(level * 1.5f);
 
             baseHealth = 10;
-            baseAttack = 2;
-            baseDefence = 2;
-            expDropBase = 5;
+            baseAttack = 4;
+            baseDefense = 2;
+            expDropBase = 6;
             goldDropBase = 2;
-            baseResist = 1;
-            baseMagic = 0;
 
-            maxHealth = baseHealth + modifier;
-            attackDamage = baseAttack + modifier;
-            defence = baseDefence + modifier;
-            expDropped = expDropBase + modifier;
-            goldDropped = goldDropBase + modifier;
-            resist = baseResist + modifier;
-            magic = baseMagic + modifier;
+            healthModifier = 1.8f;
 
-            health = maxHealth;
+            SetupStats();
         }
 
         public override char ToChar()

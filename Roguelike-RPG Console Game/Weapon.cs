@@ -9,13 +9,14 @@ namespace Roguelike_RPG_Console_Game
     public class Weapon : GameItem
     {
         public int damage { get; private set; }
-        public WeaponEffect effect = WeaponEffect.none;
+        public WeaponEffect effect;
 
-        public Weapon(string name, int damage, int cost)
+        public Weapon(string name, int damage, int cost, WeaponEffect effect = WeaponEffect.none)
             : base(name, cost)
         {
             this.damage = damage;
             info = "A weapon that deals " + damage + " damage.";
+            this.effect = effect;
         }
 
         public override bool UseItem(Player player)

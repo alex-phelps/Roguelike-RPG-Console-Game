@@ -9,7 +9,7 @@ namespace Roguelike_RPG_Console_Game
     public class NoviceFireTome : MagicWeapon
     {
         public NoviceFireTome()
-            : base(8, "Novice Fire Tome", 400)
+            : base(5, "Novice Fire Tome", 400)
         {
             effect = WeaponEffect.burn;
             info = "A basic fire tome. Has a chance to burn the enemy.";

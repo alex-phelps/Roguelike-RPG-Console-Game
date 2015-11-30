@@ -149,10 +149,9 @@ namespace Roguelike_RPG_Console_Game
                             Console.WriteLine("\n");
 
                             if (!player.alive)
-                            {
                                 battleWon = false;
-                                break;
-                            }
+
+                            break;
 
                         }
                         else if (key2 == ConsoleKey.Escape)

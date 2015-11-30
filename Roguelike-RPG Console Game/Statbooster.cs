@@ -32,7 +32,7 @@ namespace Roguelike_RPG_Console_Game
             else if (stat == "Health")
                 player.health += 5 * level;
             else if (stat == "Defense")
-                player.defence += level;
+                player.defense += level;
             else if (stat == "Magic")
                 player.magic += level;
             else if (stat == "Resist")

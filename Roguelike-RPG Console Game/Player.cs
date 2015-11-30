@@ -15,20 +15,26 @@ namespace Roguelike_RPG_Console_Game
         public List<GameItem> inventory;
         public Weapon weapon;
 
+        public int affinity = 0; //1 = Physical (Sun), -1 = Magical (Moon), 0 = Unchosen / None (Stars)
+        public string chosenAffinity;
+
+        string gender;
+
         private int expNeeded = 10;
 
-        public Player(Weapon weapon)
+        public Player(string name, string gender, int affinity, Weapon weapon)
             : base()
         {
             level = 1;
             maxHealth = 100;
             attackDamage = 4;
-            defence = 0;
+            defense = 0;
             resist = 0;
             magic = 0;
 
             inventory = new List<GameItem>();
             this.weapon = weapon;
+            this.name = name;
 
             health = maxHealth;
 
@@ -106,16 +112,16 @@ namespace Roguelike_RPG_Console_Game
 
                 Random random = new Random();
 
-                int newAttack = attackDamage + random.Next(0, 3);
-                int newMagic = magic + random.Next(0, 3);
-                int newDefence = defence + random.Next(0, 3);
-                int newResist = resist + random.Next(0, 2);
-                int newHealth = maxHealth + random.Next(0, 11);
+                int newHealth = maxHealth + random.Next(0, 7 + affinity);
+                int newAttack = attackDamage + random.Next(0, 4 + affinity);
+                int newMagic = magic + random.Next(0, 3 - affinity);
+                int newDefence = defense + random.Next(0, 3 + affinity);
+                int newResist = resist + random.Next(0, 3 - affinity);
 
                 Console.WriteLine("HP: " + maxHealth + " → " + newHealth + " +" + (newHealth - maxHealth));
                 Console.WriteLine("Att: " + attackDamage + " → " + newAttack + " +" + (newAttack - attackDamage));
                 Console.WriteLine("Mag: " + magic + " → " + newMagic + " +" + (newMagic - magic));
-                Console.WriteLine("Def: " + defence + " → " + newDefence + " +" + (newDefence - defence));
+                Console.WriteLine("Def: " + defense + " → " + newDefence + " +" + (newDefence - defense));
                 Console.WriteLine("Res: " + resist + " → " + newResist + " +" + (newResist - resist));
 
                 health += newHealth - maxHealth;
@@ -123,7 +129,7 @@ namespace Roguelike_RPG_Console_Game
                 attackDamage = newAttack;
                 magic = newMagic;
                 maxHealth = newHealth;
-                defence = newDefence;
+                defense = newDefence;
                 resist = newResist;
 
                 Console.ReadKey();
@@ -195,9 +201,12 @@ namespace Roguelike_RPG_Console_Game
                     {
                         Console.Clear();
                         Console.WriteLine("==Bag== ##Stats##\n");
-                        Console.WriteLine("Room: " + dungeonLevel);
+
+                        Console.WriteLine(name);
                         Console.WriteLine("Level: " + level);
                         Console.WriteLine("Exp: " + exp + " / " + expNeeded);
+                        Console.WriteLine();
+                        Console.WriteLine("Room: " + dungeonLevel);
                         Console.WriteLine();
                         Console.WriteLine("Gold: " + gold + "\n");
                         Console.WriteLine("Health: " + health + " / " + maxHealth);
@@ -213,7 +222,7 @@ namespace Roguelike_RPG_Console_Game
                         Console.WriteLine();
                         Console.WriteLine("Attack: " + attackDamage);
                         Console.WriteLine("Magic: " + magic);
-                        Console.WriteLine("Defense: " + defence);
+                        Console.WriteLine("Defense: " + defense);
                         Console.WriteLine("Resistance: " + resist);
 
                         ConsoleKey key2 = Console.ReadKey().Key;

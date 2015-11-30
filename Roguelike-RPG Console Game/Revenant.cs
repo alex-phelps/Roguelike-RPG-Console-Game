@@ -13,28 +13,24 @@ namespace Roguelike_RPG_Console_Game
         {
             name = "Revenant";
             level = 12;
-            int modifier = Convert.ToInt32(1.5f * level);
             itemDrop = new NoviceFireTome();
 
-            baseHealth = 12;
+            baseHealth = 10;
             baseAttack = 4;
-            baseDefence = 4;
+            baseDefense = 4;
             expDropBase = 7;
             goldDropBase = 8;
             baseResist = 2;
-            baseMagic = 0;
 
-            maxHealth = baseHealth + modifier;
-            attackDamage = baseAttack + modifier;
-            defence = baseDefence + modifier;
-            expDropped = expDropBase + modifier;
-            goldDropped = goldDropBase + modifier;
-            resist = baseResist + modifier;
-            magic = baseMagic + modifier;
+            healthModifier = 2;
+            expModifier = 1.8f;
+            goldModifier = 1.8f;
 
             effect = WeaponEffect.curse;
 
             health = maxHealth;
+
+            SetupStats();
         }
 
         public override char ToChar()

@@ -37,12 +37,12 @@ namespace Roguelike_RPG_Console_Game
         public int y;
         public bool alive { get; protected set; }
 
-        public int level;
+        public int level = 0;
         public int maxHealth;
         public int health;
         public int attackDamage;
         public int magic;
-        public int defence;
+        public int defense;
         public int resist;
 
         public StatusEffect status = StatusEffect.none;
@@ -62,7 +62,7 @@ namespace Roguelike_RPG_Console_Game
                 status = StatusEffect.cursed;
 
             if (effect != WeaponEffect.penetrate)
-                damage -= defence / 2;
+                damage -= defense / 2;
 
             if (damage < 0)
                 damage = 0;

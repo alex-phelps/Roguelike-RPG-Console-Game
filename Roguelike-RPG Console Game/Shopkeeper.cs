@@ -21,7 +21,7 @@ namespace Roguelike_RPG_Console_Game
             {
                 case 1:
                     stock.Add(new HealthTonicBasic());
-                    stock.Add(new Weapon("Basic Bronze Sword", 3, 200));
+                    stock.Add(new Weapon("Basic Bronze Sword", 4, 200));
                     stock.Add(new Statbooster("Defense", 1));
                     stock.Add(new Statbooster("Health", 1));
                     break;

@@ -18,23 +18,19 @@ namespace Roguelike_RPG_Console_Game
 
             baseHealth = 5;
             baseAttack = 8;
-            baseDefence = 0;
             expDropBase = 5;
             goldDropBase = 2;
             baseResist = 4;
-            baseMagic = 0;
 
-            maxHealth = baseHealth + modifier;
-            attackDamage = baseAttack + (int)(modifier * 1.5f);
-            defence = baseDefence + modifier;
-            expDropped = expDropBase + modifier;
-            goldDropped = goldDropBase + modifier;
-            resist = baseResist + modifier;
-            magic = baseMagic + modifier;
+            healthModifier = 1.3f;
+            attackModifier = 2.3f;
+            expModifier = 1.7f;
 
             effect = WeaponEffect.penetrate;
 
             health = maxHealth;
+
+            SetupStats();
         }
 
         public override char ToChar()

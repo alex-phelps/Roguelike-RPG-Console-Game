@@ -17,10 +17,5 @@ namespace Roguelike_RPG_Console_Game
             this.magicDamage = magicDamage;
             info = "A magical weapon that does " + magicDamage + " magic damage";
         }
-
-        public override bool UseItem(Player player)
-        {
-            return false;
-        }
     }
 }
