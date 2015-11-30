@@ -17,7 +17,7 @@ namespace Roguelike_RPG_Console_Game
             int modifier = Convert.ToInt32(level * 1.5f);
 
             baseHealth = 10;
-            baseAttack = 3;
+            baseAttack = 2;
             baseDefence = 2;
             expDropBase = 5;
             goldDropBase = 2;
