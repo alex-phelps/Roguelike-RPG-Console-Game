@@ -54,16 +54,96 @@ namespace Roguelike_RPG_Console_Game
             string name = "None";
             int gender = 0;
             int affinity = 0;
+            int race = 0;
 
             while (true)
             {
-                if (selectedCategory == 0) //Gender
+                if (selectedCategory == 0) //race
                 {
                     while (true)
                     {
                         Console.Clear();
                         Console.WriteLine("###Character Creation###");
                         Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("##Race##");
+
+                        if (race == 0)
+                            Console.WriteLine("#Human# =Elf= =Orc= =Dwarf=");
+                        else if (race == 1)
+                            Console.WriteLine("=Human= #Elf# =Orc= =Dwarf=");
+                        else if (race == 2)
+                            Console.WriteLine("=Human= =Elf= #Orc# =Dwarf=");
+                        else if (race == 3)
+                            Console.WriteLine("=Human= =Elf= =Orc= #Dwarf#");
+
+                        Console.WriteLine();
+                        Console.WriteLine("==Gender==");
+
+                        if (gender == 0)
+                            Console.WriteLine("$Male$ =Female=");
+                        else Console.WriteLine("=Male= $Female$");
+
+                        Console.WriteLine();
+                        Console.WriteLine("==Name==");
+                        Console.WriteLine("$ " + name);
+                        Console.WriteLine();
+                        Console.WriteLine("==Affinity==");
+
+                        if (affinity == 0)
+                            Console.WriteLine("$Sun$ =Moon= =Stars=");
+                        else if (affinity == 1)
+                            Console.WriteLine("=Sun= $Moon$ =Stars=");
+                        else Console.WriteLine("=Sun= =Moon= $Stars$");
+
+                        Console.WriteLine();
+                        Console.WriteLine("==Confirm==");
+
+                        ConsoleKey key = Console.ReadKey().Key;
+
+                        if (key == ConsoleKey.UpArrow)
+                        {
+                            selectedCategory = 4;
+                            break;
+                        }
+                        else if (key == ConsoleKey.DownArrow)
+                        {
+                            selectedCategory++;
+                            break;
+                        }
+                        else if (key == ConsoleKey.LeftArrow)
+                        {
+                            if (race == 0)
+                                race = 3;
+                            else race--;
+                        }
+                        else if (key == ConsoleKey.RightArrow)
+                        {
+                            if (race == 3)
+                                race = 0;
+                            else race++;
+                        }
+                    }
+                }
+                else if (selectedCategory == 1) //Gender
+                {
+                    while (true)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("###Character Creation###");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("==Race==");
+
+                        if (race == 0)
+                            Console.WriteLine("$Human$ =Elf= =Orc= =Dwarf=");
+                        else if (race == 1)
+                            Console.WriteLine("=Human= $Elf$ =Orc= =Dwarf=");
+                        else if (race == 2)
+                            Console.WriteLine("=Human= =Elf= $Orc$ =Dwarf=");
+                        else if (race == 3)
+                            Console.WriteLine("=Human= =Elf= =Orc= $Dwarf$");
+
                         Console.WriteLine();
                         Console.WriteLine("##Gender##");
 
@@ -90,16 +170,12 @@ namespace Roguelike_RPG_Console_Game
 
                         if (key == ConsoleKey.UpArrow)
                         {
-                            if (selectedCategory == 0)
-                                selectedCategory = 3;
-                            else selectedCategory--;
+                            selectedCategory--;
                             break;
                         }
                         else if (key == ConsoleKey.DownArrow)
                         {
-                            if (selectedCategory == 3)
-                                selectedCategory = 0;
-                            else selectedCategory++;
+                            selectedCategory++;
                             break;
                         }
                         else if (key == ConsoleKey.LeftArrow)
@@ -116,13 +192,25 @@ namespace Roguelike_RPG_Console_Game
                         }
                     }
                 }
-                else if (selectedCategory == 1) //Name
+                else if (selectedCategory == 2) //Name
                 {
                     while (true)
                     {
                         Console.Clear();
                         Console.WriteLine("###Character Creation###");
                         Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("==Race==");
+
+                        if (race == 0)
+                            Console.WriteLine("$Human$ =Elf= =Orc= =Dwarf=");
+                        else if (race == 1)
+                            Console.WriteLine("=Human= $Elf$ =Orc= =Dwarf=");
+                        else if (race == 2)
+                            Console.WriteLine("=Human= =Elf= $Orc$ =Dwarf=");
+                        else if (race == 3)
+                            Console.WriteLine("=Human= =Elf= =Orc= $Dwarf$");
+
                         Console.WriteLine();
                         Console.WriteLine("==Gender==");
 
@@ -149,16 +237,12 @@ namespace Roguelike_RPG_Console_Game
 
                         if (key == ConsoleKey.UpArrow)
                         {
-                            if (selectedCategory == 0)
-                                selectedCategory = 3;
-                            else selectedCategory--;
+                            selectedCategory--;
                             break;
                         }
                         else if (key == ConsoleKey.DownArrow)
                         {
-                            if (selectedCategory == 3)
-                                selectedCategory = 0;
-                            else selectedCategory++;
+                            selectedCategory++;
                             break;
                         }
                         else if (key == ConsoleKey.Enter)
@@ -170,13 +254,25 @@ namespace Roguelike_RPG_Console_Game
                         }
                     }
                 }
-                else if (selectedCategory == 2) //Affinty
+                else if (selectedCategory == 3) //Affinty
                 {
                     while (true)
                     {
                         Console.Clear();
                         Console.WriteLine("###Character Creation###");
                         Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("==Race==");
+
+                        if (race == 0)
+                            Console.WriteLine("$Human$ =Elf= =Orc= =Dwarf=");
+                        else if (race == 1)
+                            Console.WriteLine("=Human= $Elf$ =Orc= =Dwarf=");
+                        else if (race == 2)
+                            Console.WriteLine("=Human= =Elf= $Orc$ =Dwarf=");
+                        else if (race == 3)
+                            Console.WriteLine("=Human= =Elf= =Orc= $Dwarf$");
+
                         Console.WriteLine();
                         Console.WriteLine("==Gender==");
 
@@ -203,16 +299,12 @@ namespace Roguelike_RPG_Console_Game
 
                         if (key == ConsoleKey.UpArrow)
                         {
-                            if (selectedCategory == 0)
-                                selectedCategory = 3;
-                            else selectedCategory--;
+                            selectedCategory--;
                             break;
                         }
                         else if (key == ConsoleKey.DownArrow)
                         {
-                            if (selectedCategory == 3)
-                                selectedCategory = 0;
-                            else selectedCategory++;
+                            selectedCategory++;
                             break;
                         }
                         else if (key == ConsoleKey.LeftArrow)
@@ -229,79 +321,94 @@ namespace Roguelike_RPG_Console_Game
                         }
                     }
                 }
-                else if (selectedCategory == 3)
+                else if (selectedCategory == 4) //Confirm
                 {
                     while (true)
                     {
                         Console.Clear();
-                    Console.WriteLine("###Character Creation###");
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine("==Gender==");
+                        Console.WriteLine("###Character Creation###");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("==Race==");
 
-                    if (gender == 0)
-                        Console.WriteLine("$Male$ =Female=");
-                    else Console.WriteLine("=Male= $Female$");
+                        if (race == 0)
+                            Console.WriteLine("$Human$ =Elf= =Orc= =Dwarf=");
+                        else if (race == 1)
+                            Console.WriteLine("=Human= $Elf$ =Orc= =Dwarf=");
+                        else if (race == 2)
+                            Console.WriteLine("=Human= =Elf= $Orc$ =Dwarf=");
+                        else if (race == 3)
+                            Console.WriteLine("=Human= =Elf= =Orc= $Dwarf$");
 
-                    Console.WriteLine();
-                    Console.WriteLine("==Name==");
-                    Console.WriteLine("$ " + name);
-                    Console.WriteLine();
-                    Console.WriteLine("==Affinity==");
-
-                    if (affinity == 0)
-                        Console.WriteLine("$Sun$ =Moon= =Stars=");
-                    else if (affinity == 1)
-                        Console.WriteLine("=Sun= $Moon$ =Stars=");
-                    else Console.WriteLine("=Sun= =Moon= $Stars$");
-
-                    Console.WriteLine();
-                    Console.WriteLine("##Confirm##");
-
-                    ConsoleKey key = Console.ReadKey().Key;
-
-                    if (key == ConsoleKey.UpArrow)
-                    {
-                        if (selectedCategory == 0)
-                            selectedCategory = 3;
-                        else selectedCategory--;
-                        break;
-                    }
-                    else if (key == ConsoleKey.DownArrow)
-                    {
-                        if (selectedCategory == 3)
-                            selectedCategory = 0;
-                        else selectedCategory++;
-                        break;
-                    }
-                    else if (key == ConsoleKey.Enter)
-                    {
-                        string trueGender;
-                        int trueAffinity;
-                        string weaponName;
+                        Console.WriteLine();
+                        Console.WriteLine("==Gender==");
 
                         if (gender == 0)
-                            trueGender = "Male";
-                        else trueGender = "Female";
+                            Console.WriteLine("$Male$ =Female=");
+                        else Console.WriteLine("=Male= $Female$");
+
+                        Console.WriteLine();
+                        Console.WriteLine("==Name==");
+                        Console.WriteLine("$ " + name);
+                        Console.WriteLine();
+                        Console.WriteLine("==Affinity==");
 
                         if (affinity == 0)
-                            trueAffinity = 1;
+                            Console.WriteLine("$Sun$ =Moon= =Stars=");
                         else if (affinity == 1)
-                            trueAffinity = -1;
-                        else trueAffinity = 0;
+                            Console.WriteLine("=Sun= $Moon$ =Stars=");
+                        else Console.WriteLine("=Sun= =Moon= $Stars$");
 
-                        if (trueAffinity == -1)
-                            weaponName = "Wooden Staff";
-                        else weaponName = "Wooden Sword";
+                        Console.WriteLine();
+                        Console.WriteLine("##Confirm##");
+
+                        ConsoleKey key = Console.ReadKey().Key;
+
+                        if (key == ConsoleKey.UpArrow)
+                        {
+                            selectedCategory--;
+                            break;
+                        }
+                        else if (key == ConsoleKey.DownArrow)
+                        {
+                            selectedCategory = 0;
+                            break;
+                        }
+                        else if (key == ConsoleKey.Enter)
+                        {
+                            string trueGender = "";
+                            string trueRace = "";
+                            int trueAffinity = 0;
+                            string weaponName = "Wooden Sword";
+
+                            if (gender == 0)
+                                trueGender = "Male";
+                            else trueGender = "Female";
+
+                            if (race == 0)
+                                trueRace = "Human";
+                            else if (race == 1)
+                                trueRace = "Elf";
+                            else if (race == 2)
+                                trueRace = "Orc";
+                            else if (race == 3)
+                                trueRace = "Dwarf";
+
+                            if (affinity == 0)
+                                trueAffinity = 1;
+                            else if (affinity == 1)
+                                trueAffinity = -1;
+                            else trueAffinity = 0;
+
+                            if (trueAffinity == -1)
+                                weaponName = "Wooden Staff";
 
 
-                        return new Player(name, trueGender, trueAffinity, new Weapon(weaponName, 2, 40));
-                    }
+                            return new Player(name, trueRace, trueGender, trueAffinity, new Weapon(weaponName, 2, 40));
+                        }
                     }
                 }
             }
-
-            return new Player("None", "Male", 1, new Weapon("Wooden Sword", 2, 40));
         }
     }
 }

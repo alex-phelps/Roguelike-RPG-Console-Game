@@ -16,18 +16,19 @@ namespace Roguelike_RPG_Console_Game
         public Weapon weapon;
 
         public int affinity = 0; //1 = Physical (Sun), -1 = Magical (Moon), 0 = Unchosen / None (Stars)
-        public string chosenAffinity;
+        public int chosenAffinity;
 
         string gender;
+        string race;
 
         private int expNeeded = 10;
 
-        public Player(string name, string gender, int affinity, Weapon weapon)
+        public Player(string name, string race, string gender, int affinity, Weapon weapon)
             : base()
         {
             level = 1;
             maxHealth = 100;
-            attackDamage = 4;
+            attackDamage = 3;
             defense = 0;
             resist = 0;
             magic = 0;
@@ -35,6 +36,35 @@ namespace Roguelike_RPG_Console_Game
             inventory = new List<GameItem>();
             this.weapon = weapon;
             this.name = name;
+            this.gender = gender;
+            this.race = race;
+            chosenAffinity = affinity;
+
+            if (gender == "Male")
+                attackDamage++;
+            else magic++;
+
+            if (race == "Elf")
+            {
+                magic += 3;
+                resist += 2;
+                attackDamage -= 1;
+                defense -= 2;
+                maxHealth -= 10;
+            }
+            else if (race == "Orc")
+            {
+                maxHealth += 10;
+                defense += 2;
+                magic -= 1;
+                attackDamage -= 1;
+                resist -= 2;
+            }
+            else if (race == "Dwarf")
+            {
+                attackDamage += 2;
+                magic -= 2;
+            }
 
             health = maxHealth;
 
@@ -197,12 +227,22 @@ namespace Roguelike_RPG_Console_Game
                         }
                     }
 
+                    string affinityString;
+
+                    if (chosenAffinity == 0)
+                        affinityString = "Stars";
+                    else if (chosenAffinity == 1)
+                        affinityString = "Sun";
+                    else affinityString = "Moon";
+
+
                     while (true)
                     {
                         Console.Clear();
                         Console.WriteLine("==Bag== ##Stats##\n");
 
-                        Console.WriteLine(name);
+                        Console.WriteLine(name + " the " + gender + " " + race);
+                        Console.WriteLine("Affinity: " + affinityString);
                         Console.WriteLine("Level: " + level);
                         Console.WriteLine("Exp: " + exp + " / " + expNeeded);
                         Console.WriteLine();
