@@ -1,0 +1,6 @@
+﻿Implement speed
+Possibly implement dodging
+
+More rooms and content
+
+More balancing - Specifically races and bonemen
