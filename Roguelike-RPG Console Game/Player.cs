@@ -29,9 +29,9 @@ namespace Roguelike_RPG_Console_Game
             level = 1;
             maxHealth = 100;
             attackDamage = 3;
+            magic = 2;
             defense = 0;
             resist = 0;
-            magic = 0;
 
             inventory = new List<GameItem>();
             this.weapon = weapon;
@@ -47,14 +47,13 @@ namespace Roguelike_RPG_Console_Game
             if (race == "Elf")
             {
                 magic += 3;
-                resist += 2;
+                resist += 1;
                 attackDamage -= 1;
-                defense -= 2;
-                maxHealth -= 10;
+                defense -= 1;
             }
             else if (race == "Orc")
             {
-                maxHealth += 10;
+                maxHealth += 20;
                 defense += 2;
                 magic -= 1;
                 attackDamage -= 1;
@@ -64,7 +63,14 @@ namespace Roguelike_RPG_Console_Game
             {
                 attackDamage += 2;
                 magic -= 2;
+                maxHealth -= 10;
             }
+
+            if (chosenAffinity == 1)
+                magic++;
+            else if (chosenAffinity == -1)
+                attackDamage++;
+            else maxHealth += 10;
 
             health = maxHealth;
 
@@ -73,6 +79,10 @@ namespace Roguelike_RPG_Console_Game
 
         public void Update(ConsoleKey key, Room room)
         {
+            //Make affinity come into play starting at room 10
+            if (dungeonLevel == 10) 
+                affinity = chosenAffinity;
+
             if (key == ConsoleKey.UpArrow)
             {
                 y--;
@@ -142,7 +152,7 @@ namespace Roguelike_RPG_Console_Game
 
                 Random random = new Random();
 
-                int newHealth = maxHealth + random.Next(0, 7 + affinity);
+                int newHealth = maxHealth + random.Next(0, 7);
                 int newAttack = attackDamage + random.Next(0, 4 + affinity);
                 int newMagic = magic + random.Next(0, 3 - affinity);
                 int newDefence = defense + random.Next(0, 3 + affinity);

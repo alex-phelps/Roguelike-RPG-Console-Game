@@ -16,13 +16,13 @@ namespace Roguelike_RPG_Console_Game
             level = random.Next(7, 12);
             int modifier = Convert.ToInt32(level * 1.5f);
 
-            baseHealth = 5;
+            baseHealth = 8;
             baseAttack = 8;
             expDropBase = 5;
             goldDropBase = 2;
             baseResist = 4;
 
-            healthModifier = 1.3f;
+            healthModifier = 1.6f;
             attackModifier = 2.3f;
             expModifier = 1.7f;
 

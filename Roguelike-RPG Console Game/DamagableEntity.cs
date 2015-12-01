@@ -33,9 +33,9 @@ namespace Roguelike_RPG_Console_Game
             }
         }
 
+        public bool alive { get; protected set; }
         public int x;
         public int y;
-        public bool alive { get; protected set; }
 
         public int level = 0;
         public int maxHealth;
@@ -85,7 +85,7 @@ namespace Roguelike_RPG_Console_Game
             else if (effect == WeaponEffect.curse)
                 status = StatusEffect.cursed;
 
-            magicDamage -= resist / 3;
+            magicDamage -= resist / 2;
 
             if (magicDamage < 0)
                 magicDamage = 0;

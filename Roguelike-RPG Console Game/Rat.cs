@@ -15,9 +15,9 @@ namespace Roguelike_RPG_Console_Game
 
             level = random.Next(1, 5);
 
-            baseHealth = 8;
+            baseHealth = 9;
             baseAttack = 4;
-            expDropBase = 2;
+            expDropBase = 3;
             goldDropBase = 2;
 
             healthModifier = 2;
