@@ -11,7 +11,8 @@ namespace Roguelike_RPG_Console_Game
         string stat;
         int level;
 
-        public Statbooster(string stat, int level) : base("Level " + level + " " + stat + " Booster", level * 100)
+        public Statbooster(string stat, int level) 
+            : base("Level " + level + " " + stat + " Booster", level * 100)
         {
             this.stat = stat;
             this.level = level;
@@ -41,6 +42,17 @@ namespace Roguelike_RPG_Console_Game
             Console.WriteLine("You used your " + name + "!\nIt increased your " + stat.ToLower() + " stat!");
 
             return true;
+        }
+
+        public override string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "type:statbooster:\n";
+            saveData += "level:" + level + "\n";
+            saveData += "stat:" + stat + "\n";
+            saveData += "x:" + x + "\n";
+            saveData += "y:" + y + "\n";
+            return saveData;
         }
     }
 }

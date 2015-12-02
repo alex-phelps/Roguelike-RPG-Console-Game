@@ -17,5 +17,18 @@ namespace Roguelike_RPG_Console_Game
             this.magicDamage = magicDamage;
             info = "A magical weapon that does " + magicDamage + " magic damage";
         }
+
+        public override string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "type:magicWeapon:\n";
+            saveData += "name:" + name + "\n";
+            saveData += "magicDamage:" + magicDamage + "\n";
+            saveData += "effect:" + effect + "\n";
+            saveData += "cost:" + cost + "\n";
+            saveData += "x:" + x + "\n";
+            saveData += "y:" + y + "\n";
+            return saveData;
+        }
     }
 }

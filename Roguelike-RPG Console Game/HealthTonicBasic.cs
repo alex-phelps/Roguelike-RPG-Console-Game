@@ -29,5 +29,14 @@ namespace Roguelike_RPG_Console_Game
             Console.WriteLine("You used the Health Tonic!\nIt restored 40 health!");
             return true;
         }
+
+        public override string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "type:healthTonicBasic:\n";
+            saveData += "x:" + x + "\n";
+            saveData += "y:" + y + "\n";
+            return saveData;
+        }
     }
 }

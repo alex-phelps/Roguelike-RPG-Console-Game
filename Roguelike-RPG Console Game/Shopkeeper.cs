@@ -11,11 +11,13 @@ namespace Roguelike_RPG_Console_Game
         public int x;
         public int y;
 
+        private int level;
         private List<GameItem> stock;
 
         public Shopkeeper(byte level)
         {
             stock = new List<GameItem>();
+            this.level = level;
 
             switch (level)
             {
@@ -162,6 +164,13 @@ namespace Roguelike_RPG_Console_Game
         public char ToChar()
         {
             return '£';
+        }
+
+        public string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "level:" + level + "\n";
+            return saveData;
         }
     }
 }

@@ -265,5 +265,43 @@ namespace Roguelike_RPG_Console_Game
 
             return s;
         }
+
+        public string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "width:" + width + "\n";
+            saveData += "height:" + height + "\n";
+            saveData += "exitPos:" + exitPos[0] + "," + exitPos[1] + "\n";
+            saveData += "exitOpen:" + exitOpen + "\n";
+            saveData += "coinCount:" + coinCount + "\n";
+            saveData += "coinPos";
+            for (int i = 0; i < coinPos.GetLength(0); i++)
+            {
+                saveData += ":" + coinPos[i, 0] + "," + coinPos[i, 1];
+            }
+            saveData += "\n";
+            saveData += "enemycount:" + enemyCount + "\n";
+            saveData += "enemies:\n";
+
+            foreach (Enemy enemy in enemies)
+            {
+                saveData += enemy.SaveDataAsString();
+            }
+
+            saveData += "items:\n";
+
+            foreach (GameItem item in items)
+            {
+                saveData += item.SaveDataAsString();
+            }
+
+            if (boss != null)
+                saveData += "Boss:\n" + boss.SaveDataAsString();
+
+            if (shopkeeper != null)
+                saveData += "Shopkeeper:\n" + shopkeeper.SaveDataAsString();
+
+            return saveData;
+        }
     }
 }

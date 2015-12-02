@@ -34,5 +34,18 @@ namespace Roguelike_RPG_Console_Game
 
             return false;
         }
+
+        public override string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "type:weapon:\n";
+            saveData += "name:" + name + "\n";
+            saveData += "cost:" + cost + "\n";
+            saveData += "damage:" + damage + "\n";
+            saveData += "effect:" + effect + "\n";
+            saveData += "x:" + x + "\n";
+            saveData += "y:" + y + "\n";
+            return saveData;
+        }
     }
 }

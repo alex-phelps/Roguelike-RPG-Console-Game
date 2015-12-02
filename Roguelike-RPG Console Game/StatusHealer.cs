@@ -41,5 +41,16 @@ namespace Roguelike_RPG_Console_Game
                 return false;
             }
         }
+
+        public override string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "GameItem:\n";
+            saveData += "name:" + name + "\n";
+            saveData += "status:" + status + "\n";
+            saveData += "x:" + (x.ToString() ?? "null") + "\n";
+            saveData += "y:" + (y.ToString() ?? "null") + "\n";
+            return saveData;
+        }
     }
 }

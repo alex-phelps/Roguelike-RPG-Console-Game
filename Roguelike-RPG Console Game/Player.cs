@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Roguelike_RPG_Console_Game
 {
@@ -80,7 +81,7 @@ namespace Roguelike_RPG_Console_Game
         public void Update(ConsoleKey key, Room room)
         {
             //Make affinity come into play starting at room 10
-            if (dungeonLevel == 10) 
+            if (dungeonLevel >= 10 && affinity != chosenAffinity) 
                 affinity = chosenAffinity;
 
             if (key == ConsoleKey.UpArrow)
@@ -114,6 +115,80 @@ namespace Roguelike_RPG_Console_Game
             else if (key == ConsoleKey.B)
             {
                 CheckInventory();
+            }
+            else if (key == ConsoleKey.Escape)
+            {
+                int selectedItem = 0;
+
+                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("###Save Menu###");
+                    Console.WriteLine();
+
+                    if (selectedItem == 0)
+                    {
+                        Console.WriteLine("#Save#");
+                        Console.WriteLine("=Save and Quit=");
+                        Console.WriteLine("=Quit without Saving=");
+                        Console.WriteLine("=Return to game=");
+                    }
+                    else if (selectedItem == 1)
+                    {
+                        Console.WriteLine("=Save=");
+                        Console.WriteLine("#Save and Quit#");
+                        Console.WriteLine("=Quit without Saving=");
+                        Console.WriteLine("=Return to game=");
+                    }
+                    else if (selectedItem == 2) 
+                    {
+                        Console.WriteLine("=Save=");
+                        Console.WriteLine("=Save and Quit=");
+                        Console.WriteLine("#Quit without Saving#");
+                        Console.WriteLine("=Return to game=");
+                    }
+                    else if (selectedItem == 3)
+                    {
+                        Console.WriteLine("=Save=");
+                        Console.WriteLine("=Save and Quit=");
+                        Console.WriteLine("=Quit without Saving=");
+                        Console.WriteLine("#Return to game#");
+                    }
+
+                    ConsoleKey key2 = Console.ReadKey().Key;
+
+                    if (key2 == ConsoleKey.UpArrow)
+                    {
+                        if (selectedItem == 0)
+                            selectedItem = 3;
+                        else selectedItem--;
+                    }
+                    else if (key2 == ConsoleKey.DownArrow)
+                    {
+                        if (selectedItem == 3)
+                            selectedItem = 0;
+                        else selectedItem++;
+                    }
+                    else if (key2 == ConsoleKey.Enter)
+                    {
+                        if (selectedItem == 0)
+                        {
+                            Console.WriteLine();
+                            SaveGame(name + "The" + gender + race, room);
+                        }
+                        else if (selectedItem == 1)
+                        {
+                            Console.WriteLine();
+                            SaveGame(name + "The" + gender + race, room);
+                            System.Environment.Exit(0);
+                        }
+                        else if (selectedItem == 2)
+                        {
+                            System.Environment.Exit(0);
+                        }
+                        else break;
+                    }
+                }
             }
         }
 
@@ -284,6 +359,51 @@ namespace Roguelike_RPG_Console_Game
                     }
                 }
             }
+        }
+
+        private void SaveGame(string filename, Room room)
+        {
+            Console.Clear();
+            Console.WriteLine("\nSaving...");
+
+            filename += ".txt";
+
+            StreamWriter saveFile = File.CreateText(filename);
+            saveFile.WriteLine("Player:");
+            saveFile.WriteLine();
+            saveFile.WriteLine("name:" + name);
+            saveFile.WriteLine("gender:" + gender);
+            saveFile.WriteLine("race:" + race);
+            saveFile.WriteLine("chosenAffinity:" + chosenAffinity);
+            saveFile.WriteLine("affinity:" + affinity);
+            saveFile.WriteLine("dungeonLevel:" + dungeonLevel);
+            saveFile.WriteLine("x:" + x);
+            saveFile.WriteLine("y:" + y);
+            saveFile.WriteLine("level:" + level);
+            saveFile.WriteLine("exp:" + exp);
+            saveFile.WriteLine("expNeeded:" + expNeeded);
+            saveFile.WriteLine("gold:" + gold);
+            saveFile.WriteLine("weapon:\n" + weapon.SaveDataAsString());
+            saveFile.WriteLine("maxHealth:" + maxHealth);
+            saveFile.WriteLine("health:" + health);
+            saveFile.WriteLine("attackDamage:" + attackDamage);
+            saveFile.WriteLine("magic:" + magic);
+            saveFile.WriteLine("defense:" + defense);
+            saveFile.WriteLine("resist:" + resist);
+            saveFile.WriteLine("status:" + status);
+            saveFile.WriteLine("inventory:");
+            foreach (GameItem item in inventory)
+            {
+                saveFile.WriteLine(item.SaveDataAsString());
+            }
+            saveFile.WriteLine("room:");
+            saveFile.WriteLine(room.SaveDataAsString());
+
+            saveFile.Close();
+
+            Console.Clear();
+            Console.WriteLine("Saving Done!");
+            Console.ReadKey();
         }
     }
 }

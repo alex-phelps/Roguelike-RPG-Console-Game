@@ -49,5 +49,17 @@ namespace Roguelike_RPG_Console_Game
         {
             return 'º';
         }
+
+        public virtual string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "GameItem:\n";
+            saveData += "name:" + name + "\n";
+            saveData += "info:" + info + "\n";
+            saveData += "cost:" + cost + "\n";
+            saveData += "x:" + x + "\n";
+            saveData += "y:" + y + "\n";
+            return saveData;
+        }
     }
 }

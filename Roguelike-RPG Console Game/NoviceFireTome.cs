@@ -19,5 +19,15 @@ namespace Roguelike_RPG_Console_Game
         {
             return '■';
         }
+
+        public override string SaveDataAsString()
+        {
+            string saveData = "";
+            saveData += "type:noviceFireTome:\n";
+            saveData += "name:" + name + "\n";
+            saveData += "x:" + x + "\n";
+            saveData += "y:" + y + "\n";
+            return saveData;
+        }
     }
 }
