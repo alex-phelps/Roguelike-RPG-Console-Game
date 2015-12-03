@@ -39,12 +39,13 @@ namespace Roguelike_RPG_Console_Game
         {
             string saveData = "";
             saveData += "type:weapon:\n";
-            saveData += "name:" + name + "\n";
-            saveData += "cost:" + cost + "\n";
-            saveData += "damage:" + damage + "\n";
-            saveData += "effect:" + effect + "\n";
-            saveData += "x:" + x + "\n";
-            saveData += "y:" + y + "\n";
+            saveData += "name:" + name + ":\n";
+            saveData += "cost:" + cost + ":\n";
+            saveData += "damage:" + damage + ":\n";
+            saveData += "effect:" + effect + ":\n";
+            saveData += "x:" + x + ":\n";
+            saveData += "y:" + y + ":\n";
+            saveData += "end:\n";
             return saveData;
         }
     }

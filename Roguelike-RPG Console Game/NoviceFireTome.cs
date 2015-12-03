@@ -15,6 +15,15 @@ namespace Roguelike_RPG_Console_Game
             info = "A basic fire tome. Has a chance to burn the enemy.";
         }
 
+        public NoviceFireTome(int x, int y)
+            : base(5, "Novice Fire Tome", 400)
+        {
+            effect = WeaponEffect.burn;
+            info = "A basic fire tome. Has a chance to burn the enemy.";
+            this.x = x;
+            this.y = y;
+        }
+
         public override char ToChar()
         {
             return '■';
@@ -24,9 +33,9 @@ namespace Roguelike_RPG_Console_Game
         {
             string saveData = "";
             saveData += "type:noviceFireTome:\n";
-            saveData += "name:" + name + "\n";
-            saveData += "x:" + x + "\n";
-            saveData += "y:" + y + "\n";
+            saveData += "x:" + x + ":\n";
+            saveData += "y:" + y + ":\n";
+            saveData += "end:\n";
             return saveData;
         }
     }

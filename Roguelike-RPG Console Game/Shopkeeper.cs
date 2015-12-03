@@ -14,7 +14,7 @@ namespace Roguelike_RPG_Console_Game
         private int level;
         private List<GameItem> stock;
 
-        public Shopkeeper(byte level)
+        public Shopkeeper(int level)
         {
             stock = new List<GameItem>();
             this.level = level;
@@ -169,7 +169,8 @@ namespace Roguelike_RPG_Console_Game
         public string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "level:" + level + "\n";
+            saveData += "level:" + level + ":\n";
+            saveData += "end:\n";
             return saveData;
         }
     }

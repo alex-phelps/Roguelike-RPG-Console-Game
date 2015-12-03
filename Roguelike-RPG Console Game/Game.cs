@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Roguelike_RPG_Console_Game
 {
@@ -409,6 +410,166 @@ namespace Roguelike_RPG_Console_Game
                     }
                 }
             }
+        }
+        
+        private static void LoadGame(string filename, out Player player, out Room room)
+        {
+            StreamReader file = File.OpenText(filename);
+
+            while (!file.EndOfStream)
+            {
+                string text = file.ReadLine();
+
+                //Get Player Data
+                if (text == "player:")
+                {
+                    string name;
+                    string gender;
+                    string race;
+                    int chosenAffinity;
+                    int affinity;
+                    int dungeonLevel;
+                    int x;
+                    int y;
+                    int level;
+                    int exp;
+                    int expNeeded;
+                    int gold;
+                    Weapon weapon;
+                    int maxHealth;
+                    int health;
+                    int attackDamage;
+                    int magic;
+                    int defense;
+                    int resist;
+                    StatusEffect status;
+                    List<GameItem> inventory;
+
+
+                    while (!file.EndOfStream)
+                    {
+                        text = file.ReadLine();
+                        string[] subTexts = text.Split(new string[] { ":" }, StringSplitOptions.None);
+
+                        if (subTexts[0] == "name")
+                            name = subTexts[1];
+                        else if (subTexts[0] == "gender")
+                            gender = subTexts[1];
+                        else if (subTexts[0] == "race")
+                            race = subTexts[1];
+                        else if (subTexts[0] == "chosenAffinity")
+                            chosenAffinity = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "afinity")
+                            affinity = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "dungeonLevel")
+                            dungeonLevel = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "x")
+                            x = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "y")
+                            y = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "level")
+                            level = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "exp")
+                            level = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "expNeeded")
+                            expNeeded = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "gold")
+                            gold = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "weapon")
+                        {
+                            string weaponName = "none";
+                            int cost = 0;
+                            int damage = 0;
+                            WeaponEffect effect = WeaponEffect.none;
+                            int wx = 0, wy = 0;
+
+                            for (int i = 1; i < subTexts.Count(); i += 2)
+                            {
+                                if (subTexts[i] == "name")
+                                    weaponName = subTexts[i + 1];
+                                else if (subTexts[i] == "cost")
+                                    cost = Convert.ToInt32(subTexts[i + 1]);
+                                else if (subTexts[i] == "damage")
+                                    damage = Convert.ToInt32(subTexts[i + 1]);
+                                else if (subTexts[i] == "effect")
+                                {
+                                    if (subTexts[i + 1] == "burn")
+                                        effect = WeaponEffect.burn;
+                                    else if (subTexts[i + 1] == "penetrate")
+                                        effect = WeaponEffect.penetrate;
+                                    else if (subTexts[i + 1] == "curse")
+                                        effect = WeaponEffect.curse;
+                                    else if (subTexts[i + 1] == "midas")
+                                        effect = WeaponEffect.midas;
+                                    else if (subTexts[i + 1] == "wisdom")
+                                        effect = WeaponEffect.wisdom;
+                                    else effect = WeaponEffect.none;
+                                }
+                                else if (subTexts[i] == "x")
+                                    wx = Convert.ToInt32(subTexts[i + 1]);
+                                else if (subTexts[i] == "y")
+                                    wy = Convert.ToInt32(subTexts[i + 1]);
+                            }
+
+                            weapon = new Weapon(weaponName, damage, cost, effect);
+                        }
+                        else if (subTexts[0] == "maxHealth")
+                            maxHealth = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "health")
+                            health = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "attackDamage")
+                            attackDamage = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "magic")
+                            magic = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "defense")
+                            defense = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "resist")
+                            resist = Convert.ToInt32(subTexts[1]);
+                        else if (subTexts[0] == "status")
+                        {
+                            if (subTexts[1] == "burned")
+                                status = StatusEffect.burned;
+                            else if (subTexts[1] == "cursed")
+                                status = StatusEffect.cursed;
+                            else status = StatusEffect.none;
+                        }
+                        else if (subTexts[0] == "inventory")
+                        {
+                            string invText = file.ReadLine();
+                            string[] subInvTexts = invText.Split(new string[] { ":" }, StringSplitOptions.None);
+                            int sPos = 0;
+
+                            inventory = new List<GameItem>();
+
+                            while (true) 
+                            {
+                                if (subInvTexts[sPos] == "type")
+                                {
+                                    sPos++;
+                                    if (subInvTexts[sPos] == "weapon")
+                                    {
+                                        sPos++;
+                                        if (subInvTexts[sPos] == "name")
+                                    }
+                                }
+                                else if (subInvTexts[sPos] == "end")
+                                    break;
+                                sPos++;
+                            }
+                        }
+                        else if (subTexts[0] == "end")
+                            break;
+                    }
+                }
+                else if (text == "room:")
+                {
+                    while (!file.EndOfStream)
+                    {
+
+                    }
+                }
+            }
+
         }
     }
 }

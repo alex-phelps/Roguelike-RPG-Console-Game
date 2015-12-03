@@ -35,6 +35,31 @@ namespace Roguelike_RPG_Console_Game
             SetupStats();
         }
 
+        public Boneman(int x, int y, int level)
+            : base(x, y)
+        {
+            name = "Boneman";
+            this.level = level;
+
+            baseHealth = 8;
+            baseAttack = 8;
+            baseDefense = 2;
+            expDropBase = 5;
+            goldDropBase = 2;
+            baseResist = 4;
+
+            healthModifier = 1.6f;
+            attackModifier = 2.3f;
+            defenseModifier = 1f;
+            expModifier = 1.7f;
+
+            effect = WeaponEffect.penetrate;
+
+            health = maxHealth;
+
+            SetupStats();
+        }
+
         public override char ToChar()
         {
             return '¥';
@@ -43,10 +68,11 @@ namespace Roguelike_RPG_Console_Game
         public override string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "type:boneman\n";
-            saveData += "x:" + x + "\n";
-            saveData += "y:" + y + "\n";
-            saveData += "level:" + level + "\n";
+            saveData += "type:boneman:\n";
+            saveData += "x:" + x + ":\n";
+            saveData += "y:" + y + ":\n";
+            saveData += "level:" + level + ":\n";
+            saveData += "end:\n;";
             return saveData;
         }
     }

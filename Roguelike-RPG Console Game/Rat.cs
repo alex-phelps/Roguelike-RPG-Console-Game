@@ -25,6 +25,23 @@ namespace Roguelike_RPG_Console_Game
             SetupStats();
         }
 
+        public Rat(int x, int y, int level)
+            : base(x, y)
+        {
+            name = "Rat";
+
+            this.level = level;
+
+            baseHealth = 9;
+            baseAttack = 4;
+            expDropBase = 3;
+            goldDropBase = 2;
+
+            healthModifier = 2;
+
+            SetupStats();
+        }
+
         public override char ToChar()
         {
             return '«';
@@ -33,10 +50,11 @@ namespace Roguelike_RPG_Console_Game
         public override string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "type:rat\n";
-            saveData += "x:" + x + "\n";
-            saveData += "y:" + y + "\n";
-            saveData += "level:" + level + "\n";
+            saveData += "type:rat:\n";
+            saveData += "x:" + x + ":\n";
+            saveData += "y:" + y + ":\n";
+            saveData += "level:" + level + ":\n";
+            saveData += "end:\n";
             return saveData;
         }
     }

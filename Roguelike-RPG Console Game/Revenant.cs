@@ -41,7 +41,8 @@ namespace Roguelike_RPG_Console_Game
         public override string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "type:revenant\n";
+            saveData += "type:revenant:\n";
+            saveData += "end:\n";
             return saveData;
         }
     }

@@ -38,6 +38,15 @@ namespace Roguelike_RPG_Console_Game
             randomId = random.Next(-255, 255);
         }
 
+        public GameItem(string name, int cost, int x, int y, string info)
+        {
+            this.name = name;
+            this.info = info;
+            this.x = x;
+            this.y = y;
+            this.cost = cost;
+        }
+
         public virtual bool UseItem(Player player)
         {
             Console.WriteLine("You can't do anything with that right now!");
@@ -54,11 +63,12 @@ namespace Roguelike_RPG_Console_Game
         {
             string saveData = "";
             saveData += "GameItem:\n";
-            saveData += "name:" + name + "\n";
-            saveData += "info:" + info + "\n";
-            saveData += "cost:" + cost + "\n";
-            saveData += "x:" + x + "\n";
-            saveData += "y:" + y + "\n";
+            saveData += "name:" + name + ":\n";
+            saveData += "info:" + info + ":\n";
+            saveData += "cost:" + cost + ":\n";
+            saveData += "x:" + x + ":\n";
+            saveData += "y:" + y + ":\n";
+            saveData += "end:\n";
             return saveData;
         }
     }

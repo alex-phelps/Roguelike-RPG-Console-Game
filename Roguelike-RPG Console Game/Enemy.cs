@@ -40,6 +40,43 @@ namespace Roguelike_RPG_Console_Game
             this.y = y;
         }
 
+        public Enemy(string name, int x, int y, int level, WeaponEffect effect, int maxHealth,
+            int health, int attackDamage, int magic, int defense, int resist, int expDropped,
+            int goldDropped, int baseHealth, int baseAttack, int baseMagic, int baseDefense, 
+            int baseResist, int expDropBase, int goldDropBase, float healthModifier, 
+            float attackModifier, float magicModifier, float defenseModifier, float resistModifier,
+            float expModifier, float goldModifier) 
+            : base()
+        {
+            this.name = name;
+            this.x = x;
+            this.y = y;
+            this.level = level;
+            this.effect = effect;
+            this.maxHealth = maxHealth;
+            this.health = health;
+            this.attackDamage = attackDamage;
+            this.magic = magic;
+            this.defense = defense;
+            this.resist = resist;
+            this.expDropped = expDropped;
+            this.goldDropped = goldDropped;
+            this.baseHealth = baseHealth;
+            this.baseAttack = baseAttack;
+            this.baseMagic = baseMagic;
+            this.baseDefense = baseDefense;
+            this.baseResist = baseResist;
+            this.expDropBase = expDropBase;
+            this.goldDropBase = goldDropBase;
+            this.healthModifier = healthModifier;
+            this.attackModifier = attackModifier;
+            this.magicModifier = magicModifier;
+            this.defenseModifier = defenseModifier;
+            this.resistModifier = resistModifier;
+            this.expDropBase = expDropBase;
+            this.goldDropBase = goldDropBase;
+        }
+
         public virtual void Update(Player player)
         {
             if (Math.Abs(player.x - x) > Math.Abs(player.y - y))
@@ -116,33 +153,34 @@ namespace Roguelike_RPG_Console_Game
         public virtual string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "name:" + name + "\n";
-            saveData += "x:" + x + "\n";
-            saveData += "y:" + y + "\n";
-            saveData += "level:" + level + "\n";
-            saveData += "effect:" + effect + "\n";
-            saveData += "maxHealth:" + maxHealth + "\n";
-            saveData += "health:" + health + "\n";
-            saveData += "attackDamage:" + attackDamage + "\n";
-            saveData += "magic:" + magic + "\n";
-            saveData += "defense:" + defense + "\n";
-            saveData += "resist:" + resist + "\n";
-            saveData += "expDropped:" + expDropped + "\n";
-            saveData += "goldDropped:" + goldDropped + "\n";
-            saveData += "baseHealth:" + baseHealth + "\n";
-            saveData += "baseAttack:" + baseAttack + "\n";
-            saveData += "baseMagic:" + baseMagic + "\n";
-            saveData += "baseDefense:" + baseDefense + "\n";
-            saveData += "baseResist:" + baseResist + "\n";
-            saveData += "expDropBase:" + expDropBase + "\n";
-            saveData += "goldDropBase:" + goldDropBase + "\n";
-            saveData += "healthModifier:" + healthModifier + "\n";
-            saveData += "attackModifier:" + attackModifier + "\n";
-            saveData += "magicModifier:" + magicModifier + "\n";
-            saveData += "defenseModifier:" + defenseModifier + "\n";
-            saveData += "resistModifier:" + resistModifier + "\n";
-            saveData += "expModifier:" + expModifier + "\n";
-            saveData += "goldModifer:" + goldModifier + "\n";
+            saveData += "name:" + name + ":\n";
+            saveData += "x:" + x + ":\n";
+            saveData += "y:" + y + ":\n";
+            saveData += "level:" + level + ":\n";
+            saveData += "effect:" + effect + ":\n";
+            saveData += "maxHealth:" + maxHealth + ":\n";
+            saveData += "health:" + health + ":\n";
+            saveData += "attackDamage:" + attackDamage + ":\n";
+            saveData += "magic:" + magic + ":\n";
+            saveData += "defense:" + defense + ":\n";
+            saveData += "resist:" + resist + ":\n";
+            saveData += "expDropped:" + expDropped + ":\n";
+            saveData += "goldDropped:" + goldDropped + ":\n";
+            saveData += "baseHealth:" + baseHealth + ":\n";
+            saveData += "baseAttack:" + baseAttack + ":\n";
+            saveData += "baseMagic:" + baseMagic + ":\n";
+            saveData += "baseDefense:" + baseDefense + ":\n";
+            saveData += "baseResist:" + baseResist + ":\n";
+            saveData += "expDropBase:" + expDropBase + ":\n";
+            saveData += "goldDropBase:" + goldDropBase + ":\n";
+            saveData += "healthModifier:" + healthModifier + ":\n";
+            saveData += "attackModifier:" + attackModifier + ":\n";
+            saveData += "magicModifier:" + magicModifier + ":\n";
+            saveData += "defenseModifier:" + defenseModifier + ":\n";
+            saveData += "resistModifier:" + resistModifier + ":\n";
+            saveData += "expModifier:" + expModifier + ":\n";
+            saveData += "goldModifer:" + goldModifier + ":\n";
+            saveData += "end:\n";
             return saveData;
         }
     }

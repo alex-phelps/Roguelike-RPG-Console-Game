@@ -48,10 +48,11 @@ namespace Roguelike_RPG_Console_Game
         {
             string saveData = "";
             saveData += "type:statbooster:\n";
-            saveData += "level:" + level + "\n";
-            saveData += "stat:" + stat + "\n";
-            saveData += "x:" + x + "\n";
-            saveData += "y:" + y + "\n";
+            saveData += "level:" + level + ":\n";
+            saveData += "stat:" + stat + ":\n";
+            saveData += "x:" + x + ":\n";
+            saveData += "y:" + y + ":\n";
+            saveData += "end:\n";
             return saveData;
         }
     }

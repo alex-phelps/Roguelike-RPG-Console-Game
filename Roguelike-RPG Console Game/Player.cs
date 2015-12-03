@@ -16,7 +16,8 @@ namespace Roguelike_RPG_Console_Game
         public List<GameItem> inventory;
         public Weapon weapon;
 
-        public int affinity = 0; //1 = Physical (Sun), -1 = Magical (Moon), 0 = Unchosen / None (Stars)
+        //1 = Physical (Sun), -1 = Magical (Moon), 0 = Unchosen / None (Stars)
+        public int affinity = 0; 
         public int chosenAffinity;
 
         string gender;
@@ -76,6 +77,34 @@ namespace Roguelike_RPG_Console_Game
             health = maxHealth;
 
             inventory.Add(weapon);
+        }
+
+        public Player(string name, string gender, string race, int chosenAffinity, int affinity,
+            int dungeonLevel, int x, int y, int level, int exp, int expNeeded, int gold, 
+            Weapon weapon, int maxHealth, int health, int attackDamage, int magic,
+            int defense, int resist, StatusEffect status, List<GameItem> inventory)
+            : base()
+        {
+            this.name = name;
+            this.gender = gender;
+            this.chosenAffinity = chosenAffinity;
+            this.affinity = affinity;
+            this.dungeonLevel = dungeonLevel;
+            this.x = x;
+            this.y = y;
+            this.level = level;
+            this.exp = exp;
+            this.expNeeded = expNeeded;
+            this.gold = gold;
+            this.weapon = weapon;
+            this.maxHealth = maxHealth;
+            this.health = health;
+            this.attackDamage = attackDamage;
+            this.magic = magic;
+            this.defense = defense;
+            this.resist = resist;
+            this.status = status;
+            this.inventory = inventory;
         }
 
         public void Update(ConsoleKey key, Room room)
@@ -369,8 +398,7 @@ namespace Roguelike_RPG_Console_Game
             filename += ".txt";
 
             StreamWriter saveFile = File.CreateText(filename);
-            saveFile.WriteLine("Player:");
-            saveFile.WriteLine();
+            saveFile.WriteLine("player:");
             saveFile.WriteLine("name:" + name);
             saveFile.WriteLine("gender:" + gender);
             saveFile.WriteLine("race:" + race);
@@ -396,7 +424,8 @@ namespace Roguelike_RPG_Console_Game
             {
                 saveFile.WriteLine(item.SaveDataAsString());
             }
-            saveFile.WriteLine("room:");
+            saveFile.WriteLine("end:\n");
+            saveFile.WriteLine("room:\n");
             saveFile.WriteLine(room.SaveDataAsString());
 
             saveFile.Close();

@@ -140,6 +140,37 @@ namespace Roguelike_RPG_Console_Game
             boss.x = (width - 1) / 2;
         }
 
+        public Room(int width, int height, int[] exitPos, bool exitOpen, int coinCount, int[,] coinPos,
+            int enemyCount, List<Enemy> enemies, List<GameItem> items, Boss boss, Shopkeeper shopkeeper)
+        {
+            this.width = width;
+            this.height = height;
+            this.exitPos = exitPos;
+            this.exitOpen = exitOpen;
+            this.coinCount = coinCount;
+            this.coinPos = coinPos;
+            this.enemyCount = enemyCount;
+            this.enemies = enemies;
+            this.items = items;
+            this.boss = boss;
+            this.shopkeeper = shopkeeper;
+
+            map = new char[height, (width + 1)];
+
+            if (boss != null)
+            {
+                boss.y = 2;
+                boss.x = (width - 1) / 2;
+            }
+
+            if (shopkeeper != null)
+            {
+                shopkeeper.y = 2;
+                shopkeeper.x = (width - 1) / 2;
+            }
+
+        }
+
         public bool Update(Player player)
         {
             for (int y = 0; y < height; y++)
@@ -269,24 +300,25 @@ namespace Roguelike_RPG_Console_Game
         public string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "width:" + width + "\n";
-            saveData += "height:" + height + "\n";
-            saveData += "exitPos:" + exitPos[0] + "," + exitPos[1] + "\n";
-            saveData += "exitOpen:" + exitOpen + "\n";
-            saveData += "coinCount:" + coinCount + "\n";
+            saveData += "width:" + width + ":\n";
+            saveData += "height:" + height + ":\n";
+            saveData += "exitPos:" + exitPos[0] + "," + exitPos[1] + ":\n";
+            saveData += "exitOpen:" + exitOpen + ":\n";
+            saveData += "coinCount:" + coinCount + ":\n";
             saveData += "coinPos";
             for (int i = 0; i < coinPos.GetLength(0); i++)
             {
                 saveData += ":" + coinPos[i, 0] + "," + coinPos[i, 1];
             }
-            saveData += "\n";
-            saveData += "enemycount:" + enemyCount + "\n";
+            saveData += ":end:\n";
+            saveData += "enemycount:" + enemyCount + ":\n";
             saveData += "enemies:\n";
 
             foreach (Enemy enemy in enemies)
             {
                 saveData += enemy.SaveDataAsString();
             }
+            saveData += "end:\n";
 
             saveData += "items:\n";
 
@@ -294,12 +326,15 @@ namespace Roguelike_RPG_Console_Game
             {
                 saveData += item.SaveDataAsString();
             }
+            saveData += "end:\n";
 
             if (boss != null)
                 saveData += "Boss:\n" + boss.SaveDataAsString();
 
             if (shopkeeper != null)
                 saveData += "Shopkeeper:\n" + shopkeeper.SaveDataAsString();
+            
+            saveData += "end:\n";
 
             return saveData;
         }
