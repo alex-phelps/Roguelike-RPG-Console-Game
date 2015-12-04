@@ -200,16 +200,84 @@ namespace Roguelike_RPG_Console_Game
                     }
                     else if (key2 == ConsoleKey.Enter)
                     {
-                        if (selectedItem == 0)
+                        if (selectedItem == 0 || selectedItem == 1)
                         {
+                            Console.Clear();
+                            Console.WriteLine("Choose a save file.");
                             Console.WriteLine();
-                            SaveGame(name + "The" + gender + race, room);
-                        }
-                        else if (selectedItem == 1)
-                        {
+                            Console.WriteLine("##Save 1##");
+                            Console.WriteLine("==Save 2==");
+                            Console.WriteLine("==Save 3==");
                             Console.WriteLine();
-                            SaveGame(name + "The" + gender + race, room);
-                            System.Environment.Exit(0);
+                            Console.WriteLine("==Back==");
+
+                            int selectedSave = 0;
+
+                            while (true)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Choose a save file.");
+                                Console.WriteLine();
+                                if (selectedSave == 0)
+                                {
+                                    Console.WriteLine("##Save 1##");
+                                    Console.WriteLine("==Save 2==");
+                                    Console.WriteLine("==Save 3==");
+                                    Console.WriteLine();
+                                    Console.WriteLine("==Back==");
+                                }
+                                else if (selectedSave == 1)
+                                {
+                                    Console.WriteLine("==Save 1==");
+                                    Console.WriteLine("##Save 2##");
+                                    Console.WriteLine("==Save 3==");
+                                    Console.WriteLine();
+                                    Console.WriteLine("==Back==");
+                                }
+                                else if (selectedSave == 2)
+                                {
+                                    Console.WriteLine("==Save 1==");
+                                    Console.WriteLine("==Save 2==");
+                                    Console.WriteLine("##Save 3##");
+                                    Console.WriteLine();
+                                    Console.WriteLine("==Back==");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("==Save 1==");
+                                    Console.WriteLine("==Save 2==");
+                                    Console.WriteLine("==Save 3==");
+                                    Console.WriteLine();
+                                    Console.WriteLine("##Back##");
+                                }
+
+                                ConsoleKey key3 = Console.ReadKey().Key;
+
+                                if (key3 == ConsoleKey.DownArrow)
+                                {
+                                    if (selectedSave == 3)
+                                        selectedSave = 0;
+                                    else selectedSave++;
+                                }
+                                else if (key3 == ConsoleKey.UpArrow)
+                                {
+                                    if (selectedSave == 0)
+                                        selectedSave = 3;
+                                    else selectedSave--;
+                                }
+                                else if (key3 == ConsoleKey.Enter)
+                                {
+                                    if (selectedSave == 3)
+                                        break;
+                                    else
+                                    {
+                                        SaveGame("Save" + (selectedSave + 1) + ".txt", room);
+                                        if (selectedItem == 1)
+                                            Environment.Exit(0);
+                                        break;
+                                    }
+                                }
+                            }
                         }
                         else if (selectedItem == 2)
                         {
@@ -394,8 +462,6 @@ namespace Roguelike_RPG_Console_Game
         {
             Console.Clear();
             Console.WriteLine("\nSaving...");
-
-            filename += ".txt";
 
             StreamWriter saveFile = File.CreateText(filename);
             saveFile.WriteLine("player:");

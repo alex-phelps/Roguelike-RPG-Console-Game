@@ -19,6 +19,14 @@ namespace Roguelike_RPG_Console_Game
             this.effect = effect;
         }
 
+        public Weapon(string name, int damage, int cost, int x, int y, WeaponEffect effect = WeaponEffect.none)
+            : base(name, cost, x, y)
+        {
+            this.damage = damage;
+            info = "A weapon that deals " + damage + " damage.";
+            this.effect = effect;
+        }
+
         public override bool UseItem(Player player)
         {
             if (player.weapon == this)
