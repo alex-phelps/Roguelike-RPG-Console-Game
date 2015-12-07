@@ -47,12 +47,12 @@ namespace Roguelike_RPG_Console_Game
         public override string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "type:statbooster:\n";
-            saveData += "level:" + level + ":\n";
-            saveData += "stat:" + stat + ":\n";
-            saveData += "x:" + x + ":\n";
-            saveData += "y:" + y + ":\n";
-            saveData += "end:\n";
+            saveData += "type:statbooster:";
+            saveData += "level:" + level + ":";
+            saveData += "stat:" + stat + ":";
+            saveData += "x:" + x + ":";
+            saveData += "y:" + y + ":";
+            saveData += "end:";
             return saveData;
         }
     }

@@ -64,11 +64,11 @@ namespace Roguelike_RPG_Console_Game
         public override string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "statusHealer:\n";
+            saveData += "statusHealer:";
             saveData += "status:" + status + ":\n";
-            saveData += "x:" + (x.ToString() ?? "null") + ":\n";
-            saveData += "y:" + (y.ToString() ?? "null") + ":\n";
-            saveData += "end:\n";
+            saveData += "x:" + (x.ToString() ?? "null") + ":";
+            saveData += "y:" + (y.ToString() ?? "null") + ":";
+            saveData += "end:";
             return saveData;
         }
     }

@@ -32,14 +32,14 @@ namespace Roguelike_RPG_Console_Game
         public override string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "type:magicWeapon:\n";
-            saveData += "name:" + name + ":\n";
-            saveData += "magicDamage:" + magicDamage + ":\n";
-            saveData += "effect:" + effect + ":\n";
-            saveData += "cost:" + cost + ":\n";
-            saveData += "x:" + x + ":\n";
-            saveData += "y:" + y + ":\n";
-            saveData += "end:\n";
+            saveData += "type:magicWeapon:";
+            saveData += "name:" + name + ":";
+            saveData += "magicDamage:" + magicDamage + ":";
+            saveData += "effect:" + effect + ":";
+            saveData += "cost:" + cost + ":";
+            saveData += "x:" + x + ":";
+            saveData += "y:" + y + ":";
+            saveData += "end:";
             return saveData;
         }
     }

@@ -13,26 +13,166 @@ namespace Roguelike_RPG_Console_Game
         {
             bool loadGameAvalible = false;
             int titleItems = 2;
+            int selectedItem = 0;
+            Player player = null;
+            Room room = null;
+            RoomGenerator roomGenerator = null;
 
             if (File.Exists("Save1.txt") || File.Exists("Save2.txt") || File.Exists("Save3.txt")) 
             {
                 loadGameAvalible = true;
-                titleItems++;
+                titleItems = 3;
             }
 
-            Console.WriteLine("TITLE");
-            Console.WriteLine();
-            Console.WriteLine("##New Game##");
-            if (loadGameAvalible)
-                Console.WriteLine("==Load Game==");
-            Console.WriteLine("==Options==");
-            Console.WriteLine("==Quit==");
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("TITLE");
+                Console.WriteLine();
+                if (selectedItem == 0)
+                    Console.WriteLine("##New Game##");
+                else Console.WriteLine("==New Game==");
+                if (loadGameAvalible)
+                {
+                    if (selectedItem == 1)
+                        Console.WriteLine("##Load Game##");
+                    else Console.WriteLine("==Load Game==");
+                    if (selectedItem == 2)
+                        Console.WriteLine("##Options##");
+                    else Console.WriteLine("==Options==");
+                    if (selectedItem == 3)
+                        Console.WriteLine("##Quit##");
+                    else Console.WriteLine("==Quit==");
+                }
+                else
+                {
+                    if (selectedItem == 1)
+                        Console.WriteLine("##Options##");
+                    else Console.WriteLine("==Options==");
+                    if (selectedItem == 2)
+                        Console.WriteLine("##Quit##");
+                    else Console.WriteLine("==Quit==");
+                }
 
-            //Finish
+                ConsoleKey key = Console.ReadKey().Key;
 
+                if (key == ConsoleKey.UpArrow)
+                {
+                    if (selectedItem == 0)
+                        selectedItem = titleItems;
+                    else selectedItem--;
+                }
+                else if (key == ConsoleKey.DownArrow)
+                {
+                    if (selectedItem == titleItems)
+                        selectedItem = 0;
+                    else selectedItem++;
+                }
+                else if (key == ConsoleKey.Enter)
+                {
+                    if (selectedItem == 0) //Create Player
+                    {
+                        player = CreateCharacter();
+                        roomGenerator = new RoomGenerator(player);
+                        room = roomGenerator.NextRoom();
+                        player.x = room.width / 2;
+                        player.y = room.height / 2;
+                        break;
+                    }
+                    else if (loadGameAvalible)
+                    {
+                        if (selectedItem == 1) //Load game
+                        {
+                            bool doLoad = false;
+                            int selectedSave = 0;
 
-            Player player = CreateCharacter();
-            RoomGenerator roomGenerator = new RoomGenerator(player);
+                            while (true)
+                            {
+                                Console.Clear();
+                                if (selectedSave == 0)
+                                    Console.WriteLine("##Save 1##");
+                                else Console.WriteLine("==Save 1==");
+                                if (selectedSave == 1)
+                                    Console.WriteLine("##Save 2##");
+                                else Console.WriteLine("==Save 2==");
+                                if (selectedSave == 2)
+                                    Console.WriteLine("##Save 3##");
+                                else Console.WriteLine("==Save 3==");
+                                if (selectedSave == 3)
+                                    Console.WriteLine("##Back##");
+                                else Console.WriteLine("==Back==");
+
+                                ConsoleKey key2 = Console.ReadKey().Key;
+
+                                if (key2 == ConsoleKey.UpArrow)
+                                {
+                                    if (selectedSave == 0)
+                                        selectedSave = 3;
+                                    else selectedSave--;
+                                }
+                                else if (key2 == ConsoleKey.DownArrow)
+                                {
+                                    if (selectedSave == 3)
+                                        selectedSave = 0;
+                                    else selectedSave++;
+                                }
+                                else if (key2 == ConsoleKey.Enter)
+                                {
+                                    if (selectedSave == 0)
+                                    {
+                                        if (File.Exists("Save1.txt"))
+                                        {
+                                            doLoad = true;
+                                            LoadGame("Save1.txt", out player, out room);
+                                            break;
+                                        }
+                                    }
+                                    else if (selectedSave == 1)
+                                    {
+                                        if (File.Exists("Save2.txt"))
+                                        {
+                                            doLoad = true;
+                                            LoadGame("Save2.txt", out player, out room);
+                                            break;
+                                        }
+                                    }
+                                    else if (selectedSave == 2)
+                                    {
+                                        if (File.Exists("Save3.txt"))
+                                        {
+                                            doLoad = true;
+                                            LoadGame("Save3.txt", out player, out room);
+                                            break;
+                                        }
+                                    }
+                                    else if (selectedSave == 3)
+                                        break;
+
+                                    Console.WriteLine();
+                                    Console.WriteLine("No Save Found!");
+                                    Console.ReadKey();
+                                }
+                            }
+
+                            if (doLoad)
+                                break;
+                        }
+                        else if (selectedItem == 2) //Options
+                        {
+
+                        }
+                        else Environment.Exit(0); //Quit
+                    }
+                    else
+                    {
+                        if (selectedItem == 1) //Options
+                        {
+
+                        }
+                        else Environment.Exit(0); //Quit
+                    }
+                }
+            }
 
             Console.Clear();
             Console.WriteLine("###Controls###");
@@ -45,10 +185,6 @@ namespace Roguelike_RPG_Console_Game
 
             while (true)
             {
-                Room room = roomGenerator.NextRoom();
-                player.x = room.width / 2;
-                player.y = room.height / 2;
-
                 while (!room.Update(player))
                 {
                     string roomString = room.ToString();
@@ -65,6 +201,9 @@ namespace Roguelike_RPG_Console_Game
                 }
 
                 player.dungeonLevel++;
+                room = roomGenerator.NextRoom();
+                player.x = room.width / 2;
+                player.y = room.height / 2;
             }
         }
 
@@ -559,7 +698,7 @@ namespace Roguelike_RPG_Console_Game
                         else if (subTexts[0] == "inventory")
                         {
                             string invText = file.ReadLine();
-                            string[] subInvTexts = invText.Split(new string[] { ":" }, StringSplitOptions.None);
+                            string[] subInvTexts = invText.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
                             int sPos = 0;
 
                             inventory = new List<GameItem>();
@@ -818,15 +957,15 @@ namespace Roguelike_RPG_Console_Game
                                 }
                                 else if (subInvTexts[sPos] == "end")
                                     break;
-                                else
+                                else if (subInvTexts[sPos] == "gameItem")
                                 {
+                                    string itemName = "none";
+                                    int cost = 0;
+                                    string info = "none";
+                                    int ix = 0, iy = 0;
+
                                     while (!file.EndOfStream)
                                     {
-                                        string itemName = "none";
-                                        int cost = 0;
-                                        string info = "none";
-                                        int ix = 0, iy = 0;
-
                                         sPos++;
 
                                         if (subInvTexts[sPos] == "name")

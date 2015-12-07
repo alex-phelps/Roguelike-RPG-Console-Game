@@ -34,9 +34,9 @@ namespace Roguelike_RPG_Console_Game
         {
             string saveData = "";
             saveData += "type:healthTonicBasic:\n";
-            saveData += "x:" + x + ":\n";
-            saveData += "y:" + y + ":\n";
-            saveData += "end:\n";
+            saveData += "x:" + x + ":";
+            saveData += "y:" + y + ":";
+            saveData += "end:";
             return saveData;
         }
     }

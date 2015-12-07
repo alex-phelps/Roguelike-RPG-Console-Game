@@ -477,7 +477,7 @@ namespace Roguelike_RPG_Console_Game
             saveFile.WriteLine("exp:" + exp);
             saveFile.WriteLine("expNeeded:" + expNeeded);
             saveFile.WriteLine("gold:" + gold);
-            saveFile.WriteLine("weapon:\n" + weapon.SaveDataAsString());
+            saveFile.WriteLine("weapon:" + weapon.SaveDataAsString());
             saveFile.WriteLine("maxHealth:" + maxHealth);
             saveFile.WriteLine("health:" + health);
             saveFile.WriteLine("attackDamage:" + attackDamage);
@@ -488,10 +488,9 @@ namespace Roguelike_RPG_Console_Game
             saveFile.WriteLine("inventory:");
             foreach (GameItem item in inventory)
             {
-                saveFile.WriteLine(item.SaveDataAsString());
+                saveFile.WriteLine(item.SaveDataAsString() + "end:");
             }
-            saveFile.WriteLine("end:\n");
-            saveFile.WriteLine("room:\n");
+            saveFile.WriteLine("room:");
             saveFile.WriteLine(room.SaveDataAsString());
 
             saveFile.Close();

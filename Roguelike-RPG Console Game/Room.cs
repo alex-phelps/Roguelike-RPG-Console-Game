@@ -300,41 +300,41 @@ namespace Roguelike_RPG_Console_Game
         public string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "width:" + width + ":\n";
-            saveData += "height:" + height + ":\n";
-            saveData += "exitPos:" + exitPos[0] + "," + exitPos[1] + ":\n";
-            saveData += "exitOpen:" + exitOpen + ":\n";
-            saveData += "coinCount:" + coinCount + ":\n";
+            saveData += "width:" + width + ":";
+            saveData += "height:" + height + ":";
+            saveData += "exitPos:" + exitPos[0] + "," + exitPos[1] + ":";
+            saveData += "exitOpen:" + exitOpen + ":";
+            saveData += "coinCount:" + coinCount + ":";
             saveData += "coinPos";
             for (int i = 0; i < coinPos.GetLength(0); i++)
             {
                 saveData += ":" + coinPos[i, 0] + "," + coinPos[i, 1];
             }
-            saveData += ":end:\n";
-            saveData += "enemycount:" + enemyCount + ":\n";
-            saveData += "enemies:\n";
+            saveData += ":end:";
+            saveData += "enemycount:" + enemyCount + ":";
+            saveData += "enemies:";
 
             foreach (Enemy enemy in enemies)
             {
                 saveData += enemy.SaveDataAsString();
             }
-            saveData += "end:\n";
+            saveData += "end:";
 
-            saveData += "items:\n";
+            saveData += "items:";
 
             foreach (GameItem item in items)
             {
                 saveData += item.SaveDataAsString();
             }
-            saveData += "end:\n";
+            saveData += "end:";
 
             if (boss != null)
-                saveData += "Boss:\n" + boss.SaveDataAsString();
+                saveData += "Boss:" + boss.SaveDataAsString();
 
             if (shopkeeper != null)
-                saveData += "Shopkeeper:\n" + shopkeeper.SaveDataAsString();
+                saveData += "Shopkeeper:" + shopkeeper.SaveDataAsString();
             
-            saveData += "end:\n";
+            saveData += "end:";
 
             return saveData;
         }

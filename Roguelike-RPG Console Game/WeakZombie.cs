@@ -50,11 +50,11 @@ namespace Roguelike_RPG_Console_Game
         public override string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "type:weakZombie:\n";
-            saveData += "x:" + x + ":\n";
-            saveData += "y:" + y + ":\n";
-            saveData += "level:" + level + ":\n";
-            saveData += "end:\n";
+            saveData += "type:weakZombie:";
+            saveData += "x:" + x + ":";
+            saveData += "y:" + y + ":";
+            saveData += "level:" + level + ":";
+            saveData += "end:";
             return saveData;
         }
     }

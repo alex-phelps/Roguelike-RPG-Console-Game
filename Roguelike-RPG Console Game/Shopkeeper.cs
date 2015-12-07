@@ -169,8 +169,8 @@ namespace Roguelike_RPG_Console_Game
         public string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "level:" + level + ":\n";
-            saveData += "end:\n";
+            saveData += "level:" + level + ":";
+            saveData += "end:";
             return saveData;
         }
     }
