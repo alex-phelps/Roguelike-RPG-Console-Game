@@ -33,7 +33,7 @@ namespace Roguelike_RPG_Console_Game
         public override string SaveDataAsString()
         {
             string saveData = "";
-            saveData += "type:healthTonicBasic:\n";
+            saveData += "type:healthTonicBasic:";
             saveData += "x:" + x + ":";
             saveData += "y:" + y + ":";
             saveData += "end:";

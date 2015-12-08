@@ -608,7 +608,7 @@ namespace Roguelike_RPG_Console_Game
                     List<GameItem> inventory = new List<GameItem>();
 
 
-                    while (!file.EndOfStream)
+                    while (true)
                     {
                         text = file.ReadLine();
                         string[] subTexts = text.Split(new string[] { ":" }, StringSplitOptions.None);
@@ -703,7 +703,7 @@ namespace Roguelike_RPG_Console_Game
 
                             inventory = new List<GameItem>();
 
-                            while (!file.EndOfStream) 
+                            while (true) 
                             {
                                 if (subInvTexts[sPos] == "type")
                                 {
@@ -716,7 +716,7 @@ namespace Roguelike_RPG_Console_Game
                                         WeaponEffect effect = WeaponEffect.none;
                                         int wx = 0, wy = 0;
 
-                                        while (!file.EndOfStream) 
+                                        while (true) 
                                         {
                                             sPos++;
 
@@ -777,7 +777,7 @@ namespace Roguelike_RPG_Console_Game
                                         WeaponEffect effect = WeaponEffect.none;
                                         int wx = 0, wy = 0;
 
-                                        while (!file.EndOfStream)
+                                        while (true)
                                         {
                                             sPos++;
 
@@ -1029,7 +1029,7 @@ namespace Roguelike_RPG_Console_Game
                     Boss boss = null;
                     Shopkeeper shopkeeper = null;
 
-                    while (!file.EndOfStream)
+                    while (true)
                     {
                         if (subTexts[sPos] == "width")
                         {
@@ -1069,7 +1069,6 @@ namespace Roguelike_RPG_Console_Game
                             {
                                 if (subTexts[sPos] == "end")
                                 {
-                                    sPos++;
                                     break;
                                 }
                                 else
@@ -1084,7 +1083,7 @@ namespace Roguelike_RPG_Console_Game
                                 }
                             }
                         }
-                        else if (subTexts[sPos] == "enemyCount")
+                        else if (subTexts[sPos] == "enemycount")
                         {
                             sPos++;
                             enemyCount = Convert.ToInt32(subTexts[sPos]);
@@ -1124,13 +1123,12 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 enemies.Add(new Rat(ex, ey, level));
                                                 break;
                                             }
-                                        }
 
-                                        sPos++;
+                                            sPos++;
+                                        }
                                     }
                                     else if (subTexts[sPos] == "weakZombie")
                                     {
@@ -1157,13 +1155,12 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 enemies.Add(new WeakZombie(ex, ey, level));
                                                 break;
                                             }
-                                        }
 
-                                        sPos++;
+                                            sPos++;
+                                        }
                                     }
                                     else if (subTexts[sPos] == "boneman")
                                     {
@@ -1190,13 +1187,12 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 enemies.Add(new Boneman(ex, ey, level));
                                                 break;
                                             }
-                                        }
 
-                                        sPos++;
+                                            sPos++;
+                                        }
                                     }
                                     else
                                     {
@@ -1378,7 +1374,6 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 enemies.Add(new Enemy(name, ex, ey, level, effect, maxHealth, health,
                                                     attackDamage, magic, defense, resist, expDropped, goldDropped,
                                                     baseHealth, baseAttack, baseMagic, baseDefense, baseResist, expDropBase,
@@ -1386,13 +1381,15 @@ namespace Roguelike_RPG_Console_Game
                                                     resistModifier, expModifier, goldModifier));
                                                 break;
                                             }
-                                        }
 
-                                        sPos++;
+                                            sPos++;
+                                        }
                                     }
 
                                     sPos++;
                                 }
+                                else if (subTexts[sPos] == "end")
+                                    break;
                             }
                         }
                         else if (subTexts[sPos] == "items")
@@ -1407,14 +1404,14 @@ namespace Roguelike_RPG_Console_Game
 
                                     if (subTexts[sPos] == "weapon")
                                     {
+                                        string weaponName = "none";
+                                        int cost = 0;
+                                        int damage = 0;
+                                        WeaponEffect effect = WeaponEffect.none;
+                                        int wx = 0, wy = 0;
+
                                         while (true)
                                         {
-                                            string weaponName = "none";
-                                            int cost = 0;
-                                            int damage = 0;
-                                            WeaponEffect effect = WeaponEffect.none;
-                                            int wx = 0, wy = 0;
-
                                             sPos++;
 
                                             if (subTexts[sPos] == "name")
@@ -1462,22 +1459,21 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 items.Add(new Weapon(weaponName, damage, cost, wx, wy, effect));
                                                 break;
                                             }
                                         }
                                     }
-                                    else if (subTexts[sPos] == "weapon")
+                                    else if (subTexts[sPos] == "magicWeapon")
                                     {
-                                        while (!file.EndOfStream)
-                                        {
-                                            string weaponName = "none";
-                                            int cost = 0;
-                                            int magicDamage = 0;
-                                            WeaponEffect effect = WeaponEffect.none;
-                                            int wx = 0, wy = 0;
+                                        string weaponName = "none";
+                                        int cost = 0;
+                                        int magicDamage = 0;
+                                        WeaponEffect effect = WeaponEffect.none;
+                                        int wx = 0, wy = 0;
 
+                                        while (true)
+                                        {
                                             sPos++;
 
                                             if (subTexts[sPos] == "name")
@@ -1525,7 +1521,6 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 items.Add(new MagicWeapon(magicDamage, weaponName, cost, wx, wy, effect));
                                                 break;
                                             }
@@ -1533,10 +1528,10 @@ namespace Roguelike_RPG_Console_Game
                                     }
                                     else if (subTexts[sPos] == "noviceFireTome")
                                     {
-                                        while (!file.EndOfStream)
-                                        {
-                                            int wx = 0, wy = 0;
+                                        int wx = 0, wy = 0;
 
+                                        while (true)
+                                        {
                                             sPos++;
 
                                             if (subTexts[sPos] == "x")
@@ -1551,7 +1546,6 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 items.Add(new NoviceFireTome(wx, wy));
                                                 break;
                                             }
@@ -1559,12 +1553,12 @@ namespace Roguelike_RPG_Console_Game
                                     }
                                     else if (subTexts[sPos] == "statbooster")
                                     {
+                                        int ix = 0, iy = 0;
+                                        int statLevel = 1;
+                                        string stat = "Health";
+
                                         while (!file.EndOfStream)
                                         {
-                                            int ix = 0, iy = 0;
-                                            int statLevel = 1;
-                                            string stat = "Health";
-
                                             sPos++;
 
                                             if (subTexts[sPos] == "x")
@@ -1589,7 +1583,6 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 items.Add(new Statbooster(stat, statLevel, ix, iy));
                                                 break;
                                             }
@@ -1597,11 +1590,11 @@ namespace Roguelike_RPG_Console_Game
                                     }
                                     else if (subTexts[sPos] == "statusHealer")
                                     {
+                                        int ix = 0, iy = 0;
+                                        StatusEffect itemStatus = StatusEffect.none;
+
                                         while (!file.EndOfStream)
                                         {
-                                            int ix = 0, iy = 0;
-                                            StatusEffect itemStatus = StatusEffect.none;
-
                                             sPos++;
 
                                             if (subTexts[sPos] == "x")
@@ -1628,7 +1621,6 @@ namespace Roguelike_RPG_Console_Game
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 items.Add(new StatusHealer(itemStatus, ix, iy));
                                                 break;
                                             }
@@ -1636,9 +1628,10 @@ namespace Roguelike_RPG_Console_Game
                                     }
                                     else if (subTexts[sPos] == "healthTonicBasic")
                                     {
-                                        while (!file.EndOfStream)
+                                        int hx = 0, hy = 0;
+
+                                        while (true)
                                         {
-                                            int hx = 0, hy = 0;
                                             sPos++;
 
                                             if (subTexts[sPos] == "x")
@@ -1646,31 +1639,30 @@ namespace Roguelike_RPG_Console_Game
                                                 sPos++;
                                                 hx = Convert.ToInt32(subTexts[sPos]);
                                             }
-                                            else if (subTexts[sPos] == "x")
+                                            else if (subTexts[sPos] == "y")
                                             {
                                                 sPos++;
                                                 hy = Convert.ToInt32(subTexts[sPos]);
                                             }
                                             else if (subTexts[sPos] == "end")
                                             {
-                                                sPos++;
                                                 items.Add(new HealthTonicBasic(hx, hy));
                                                 break;
                                             }
                                         }
                                     }
                                 }
-                                else if (subTexts[sPos] == "end")
+                                else if (subTexts[sPos] == "end") 
                                     break;
                                 else
                                 {
-                                    while (!file.EndOfStream)
-                                    {
-                                        string itemName = "none";
-                                        int cost = 0;
-                                        string info = "none";
-                                        int ix = 0, iy = 0;
+                                    string itemName = "none";
+                                    int cost = 0;
+                                    string info = "none";
+                                    int ix = 0, iy = 0;
 
+                                    while (true)
+                                    {
                                         sPos++;
 
                                         if (subTexts[sPos] == "name")
@@ -1700,7 +1692,6 @@ namespace Roguelike_RPG_Console_Game
                                         }
                                         else if (subTexts[sPos] == "end")
                                         {
-                                            sPos++;
                                             items.Add(new GameItem(itemName, cost, ix, iy, info));
                                             break;
                                         }
@@ -1941,11 +1932,11 @@ namespace Roguelike_RPG_Console_Game
                         else if (subTexts[sPos] == "end")
                         {
                             sPos++;
-                            room = new Room(width, height, exitPos, exitOpen, coinCount, coinPos, enemyCount, 
+                            room = new Room(width, height, exitPos, exitOpen, coinCount, coinPos, enemyCount,
                                 enemies, items, boss, shopkeeper);
                             break;
                         }
-
+                        
                         sPos++;
                     }
                 }

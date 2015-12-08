@@ -490,6 +490,7 @@ namespace Roguelike_RPG_Console_Game
             {
                 saveFile.WriteLine(item.SaveDataAsString() + "end:");
             }
+            saveFile.WriteLine("end:");
             saveFile.WriteLine("room:");
             saveFile.WriteLine(room.SaveDataAsString());
 
