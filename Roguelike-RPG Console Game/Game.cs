@@ -27,7 +27,8 @@ namespace Roguelike_RPG_Console_Game
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("TITLE");
+                Console.WriteLine("<=>Main Menu<=>");
+                Console.WriteLine();
                 Console.WriteLine();
                 if (selectedItem == 0)
                     Console.WriteLine("##New Game##");
@@ -124,6 +125,7 @@ namespace Roguelike_RPG_Console_Game
                                         {
                                             doLoad = true;
                                             LoadGame("Save1.txt", out player, out room);
+                                            roomGenerator = new RoomGenerator(player);
                                             break;
                                         }
                                     }
@@ -133,6 +135,7 @@ namespace Roguelike_RPG_Console_Game
                                         {
                                             doLoad = true;
                                             LoadGame("Save2.txt", out player, out room);
+                                            roomGenerator = new RoomGenerator(player);
                                             break;
                                         }
                                     }
@@ -142,6 +145,7 @@ namespace Roguelike_RPG_Console_Game
                                         {
                                             doLoad = true;
                                             LoadGame("Save3.txt", out player, out room);
+                                            roomGenerator = new RoomGenerator(player);
                                             break;
                                         }
                                     }
@@ -175,8 +179,9 @@ namespace Roguelike_RPG_Console_Game
             }
 
             Console.Clear();
-            Console.WriteLine("###Controls###");
-            Console.WriteLine("\nArrow Keys: Move");
+            Console.WriteLine("<=>Controls<=>");
+            Console.WriteLine();
+            Console.WriteLine("Arrow Keys: Move");
             Console.WriteLine("Enter: Select");
             Console.WriteLine("Escape: Back");
             Console.WriteLine("B: Inventory");
@@ -223,7 +228,7 @@ namespace Roguelike_RPG_Console_Game
                     while (true)
                     {
                         Console.Clear();
-                        Console.WriteLine("###Character Creation###");
+                        Console.WriteLine("<=>Character Creation<=>");
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.WriteLine("##Race##");
@@ -290,7 +295,7 @@ namespace Roguelike_RPG_Console_Game
                     while (true)
                     {
                         Console.Clear();
-                        Console.WriteLine("###Character Creation###");
+                        Console.WriteLine("<=>Character Creation<=>");
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.WriteLine("==Race==");
@@ -357,7 +362,7 @@ namespace Roguelike_RPG_Console_Game
                     while (true)
                     {
                         Console.Clear();
-                        Console.WriteLine("###Character Creation###");
+                        Console.WriteLine("<=>Character Creation<=>");
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.WriteLine("==Race==");
@@ -419,7 +424,7 @@ namespace Roguelike_RPG_Console_Game
                     while (true)
                     {
                         Console.Clear();
-                        Console.WriteLine("###Character Creation###");
+                        Console.WriteLine("<=>Character Creation<=>");
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.WriteLine("==Race==");
@@ -486,7 +491,7 @@ namespace Roguelike_RPG_Console_Game
                     while (true)
                     {
                         Console.Clear();
-                        Console.WriteLine("###Character Creation###");
+                        Console.WriteLine("<=>Character Creation<=>");
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.WriteLine("==Race==");
@@ -831,10 +836,10 @@ namespace Roguelike_RPG_Console_Game
                                     }
                                     else if (subInvTexts[sPos] == "noviceFireTome")
                                     {
-                                        while (!file.EndOfStream)
-                                        {
-                                            int wx = 0, wy = 0;
+                                        int wx = 0, wy = 0;
                                             
+                                        while (true)
+                                        {
                                             sPos++;
 
                                             if (subInvTexts[sPos] == "x")
@@ -857,12 +862,12 @@ namespace Roguelike_RPG_Console_Game
                                     }
                                     else if (subInvTexts[sPos] == "statbooster")
                                     {
-                                        while (!file.EndOfStream)
-                                        {
-                                            int ix = 0, iy = 0;
-                                            int statLevel = 1;
-                                            string stat = "Health";
+                                        int ix = 0, iy = 0;
+                                        int statLevel = 1;
+                                        string stat = "Health";
 
+                                        while (true)
+                                        {
                                             sPos++;
 
                                             if (subInvTexts[sPos] == "x")
@@ -895,11 +900,11 @@ namespace Roguelike_RPG_Console_Game
                                     }
                                     else if (subInvTexts[sPos] == "statusHealer")
                                     {
-                                        while (!file.EndOfStream)
-                                        {
-                                            int ix = 0, iy = 0;
-                                            StatusEffect itemStatus = StatusEffect.none;
+                                        int ix = 0, iy = 0;
+                                        StatusEffect itemStatus = StatusEffect.none;
 
+                                        while (true)
+                                        {
                                             sPos++;
 
                                             if (subInvTexts[sPos] == "x")
@@ -931,9 +936,10 @@ namespace Roguelike_RPG_Console_Game
                                     }
                                     else if (subInvTexts[sPos] == "healthTonicBasic")
                                     {
-                                        while (!file.EndOfStream)
+                                        int hx = 0, hy = 0;
+
+                                        while (true)
                                         {
-                                            int hx = 0, hy = 0;
                                             sPos++;
 
                                             if (subInvTexts[sPos] == "x")
@@ -964,7 +970,7 @@ namespace Roguelike_RPG_Console_Game
                                     string info = "none";
                                     int ix = 0, iy = 0;
 
-                                    while (!file.EndOfStream)
+                                    while (true)
                                     {
                                         sPos++;
 
@@ -1557,7 +1563,7 @@ namespace Roguelike_RPG_Console_Game
                                         int statLevel = 1;
                                         string stat = "Health";
 
-                                        while (!file.EndOfStream)
+                                        while (true)
                                         {
                                             sPos++;
 
@@ -1593,7 +1599,7 @@ namespace Roguelike_RPG_Console_Game
                                         int ix = 0, iy = 0;
                                         StatusEffect itemStatus = StatusEffect.none;
 
-                                        while (!file.EndOfStream)
+                                        while (true)
                                         {
                                             sPos++;
 
@@ -1921,7 +1927,6 @@ namespace Roguelike_RPG_Console_Game
                                 }
                                 else if (subTexts[sPos] == "end")
                                 {
-                                    sPos++;
                                     shopkeeper = new Shopkeeper(level);
                                     break;
                                 }
@@ -1942,6 +1947,7 @@ namespace Roguelike_RPG_Console_Game
                 }
             }
 
+            file.Close();
         }
     }
 }

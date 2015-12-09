@@ -49,7 +49,7 @@ namespace Roguelike_RPG_Console_Game
             baseResist = 4;
 
             healthModifier = 1.6f;
-            attackModifier = 2.3f;
+            attackModifier = 2.2f;
             defenseModifier = 1f;
             expModifier = 1.7f;
 

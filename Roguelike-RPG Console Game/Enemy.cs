@@ -131,7 +131,6 @@ namespace Roguelike_RPG_Console_Game
                 "Level " + level + " " + name + "\n" +
                 "Health: " + healthBar + "\n" +
                 "#####################\n" +
-                "IMAGE HERE\n" +
                 "#####################\n";
 
         }

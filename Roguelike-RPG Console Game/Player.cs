@@ -488,8 +488,9 @@ namespace Roguelike_RPG_Console_Game
             saveFile.WriteLine("inventory:");
             foreach (GameItem item in inventory)
             {
-                saveFile.WriteLine(item.SaveDataAsString() + "end:");
+                saveFile.Write(item.SaveDataAsString());
             }
+            saveFile.WriteLine("end:");
             saveFile.WriteLine("end:");
             saveFile.WriteLine("room:");
             saveFile.WriteLine(room.SaveDataAsString());
